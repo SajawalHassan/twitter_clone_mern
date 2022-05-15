@@ -19,9 +19,13 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:5000/users/profile/6280f48ea3e02dcbd36f9e2b
+PUT http://localhost:5000/users/edit
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdmOTA5ZDdiNDUwNDdhZGE5OGU2YjciLCJ1c2VybmFtZSI6ImJvYiIsImVtYWlsIjoiYm9iQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJC43dS56bG5ETDhUNm9VZUsxU2c2Mk9LZ3kvRTYzMWRMUENJSjJlMHp2T0xwMEwvTkdHcjhtIiwiaWF0IjoxNjUyNjIyMjU3LCJleHAiOjE2NTI2MjI4NTd9.cqM48vpZMFLBkRmFNuCi_xPAV-v6Dtb4nGgoylwpY_I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdmOTA5ZDdiNDUwNDdhZGE5OGU2YjciLCJ1c2VybmFtZSI6ImJvYiIsImVtYWlsIjoiYm9iQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJC43dS56bG5ETDhUNm9VZUsxU2c2Mk9LZ3kvRTYzMWRMUENJSjJlMHp2T0xwMEwvTkdHcjhtIiwiaWF0IjoxNjUyNjIyODkzLCJleHAiOjE2NTI2MjM0OTN9.wkxHLcONlOyrIV7Cb6EI4iX_p9FVgUzd38-_TuG1JKI
+
+{
+    "password": "123456789"
+}
 
 ###
 

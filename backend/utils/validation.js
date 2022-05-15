@@ -18,3 +18,13 @@ module.exports.loginValidation = (data) => {
 
   return schema.validate(data);
 };
+
+module.exports.userEditValidation = (data) => {
+  const schema = Joi.object({
+    username: Joi.string().min(3).max(255),
+    email: Joi.string().min(3).max(255).email(),
+    password: Joi.string().min(8).max(1024),
+  });
+
+  return schema.validate(data);
+};

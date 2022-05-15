@@ -120,7 +120,7 @@ router.post("/refresh/token", (req, res) => {
       // Generating access token
       const accessToken = generateAccessToken(userPayload);
 
-      res.json(accessToken);
+      res.json({ accessToken });
     });
   } catch (error) {
     res.sendStatus(500);
