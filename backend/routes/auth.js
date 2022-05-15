@@ -95,32 +95,36 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/refresh/token", (req, res) => {
-  // Getting refresh token
-  const refreshToken = req.body.token;
+  try {
+    // Getting refresh token
+    const refreshToken = req.body.token;
 
-  // Finding refresh token
-  const _refreshToken = RefreshToken.findOne({ refreshToken: refreshToken });
+    // Finding refresh token
+    const _refreshToken = RefreshToken.findOne({ refreshToken: refreshToken });
 
-  // Making sure there is a refresh token and that refresh token exists in db
-  if (refreshToken == null) return res.sendStatus(401);
-  if (!_refreshToken) return res.sendStatus(403);
+    // Making sure there is a refresh token and that refresh token exists in db
+    if (refreshToken == null) return res.sendStatus(401);
+    if (!_refreshToken) return res.sendStatus(403);
 
-  // Vaifying refresh token
-  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
+    // Vaifying refresh token
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+      if (err) return res.sendStatus(403);
 
-    const userPayload = {
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      password: user.password,
-    };
+      const userPayload = {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        password: user.password,
+      };
 
-    // Generating access token
-    const accessToken = generateAccessToken(userPayload);
+      // Generating access token
+      const accessToken = generateAccessToken(userPayload);
 
-    res.json(accessToken);
-  });
+      res.json(accessToken);
+    });
+  } catch (error) {
+    res.sendStatus(500);
+  }
 });
 
 module.exports = router;

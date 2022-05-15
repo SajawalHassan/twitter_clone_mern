@@ -13,15 +13,15 @@ POST http://localhost:5000/auth/login
 Content-Type: application/json
 
 {
-    "email": "kyle@gmail.com",
+    "email": "bob@gmail.com",
     "password": "123456789"
 }
 
 ###
 
-GET http://localhost:5000/posts
+GET http://localhost:5000/users/profile/6280f48ea3e02dcbd36f9e2b
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjgwZjQ4ZWEzZTAyZGNiZDM2ZjllMmIiLCJ1c2VybmFtZSI6Imt5bGUiLCJlbWFpbCI6Imt5bGVAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkblJvMG90QUFKRjREM0E2QUk0YkxWdTdxVXhqekVoODE1bExFODJFMGk2SVl4Smh1WFBXenkiLCJpYXQiOjE2NTI2MjE0NTcsImV4cCI6MTY1MjYyMTQ3Mn0.RHg5YzY-jpYlberR8HD-cmdicL3RdWrYYut2I_hRkuA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdmOTA5ZDdiNDUwNDdhZGE5OGU2YjciLCJ1c2VybmFtZSI6ImJvYiIsImVtYWlsIjoiYm9iQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJC43dS56bG5ETDhUNm9VZUsxU2c2Mk9LZ3kvRTYzMWRMUENJSjJlMHp2T0xwMEwvTkdHcjhtIiwiaWF0IjoxNjUyNjIyMjU3LCJleHAiOjE2NTI2MjI4NTd9.cqM48vpZMFLBkRmFNuCi_xPAV-v6Dtb4nGgoylwpY_I
 
 ###
 
@@ -29,5 +29,5 @@ POST http://localhost:5000/auth/refresh/token
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjgwZjQ4ZWEzZTAyZGNiZDM2ZjllMmIiLCJ1c2VybmFtZSI6Imt5bGUiLCJlbWFpbCI6Imt5bGVAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkblJvMG90QUFKRjREM0E2QUk0YkxWdTdxVXhqekVoODE1bExFODJFMGk2SVl4Smh1WFBXenkiLCJkYXRlIjoiMjAyMi0wNS0xNVQxMjozOToyNi4xNDhaIiwiX192IjowLCJpYXQiOjE2NTI2MjE0MjF9.pgGYZUnBJ2xjBK2DZwRVl0Ax_jtbf4LX4x1uUBTvleQ"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRlIjoiMjAyMi0wNS0xNVQxMzo0NDowMi40NTJaIiwiX2lkIjoiNjI3ZjkwOWQ3YjQ1MDQ3YWRhOThlNmI3IiwidXNlcm5hbWUiOiJib2IiLCJlbWFpbCI6ImJvYkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQuN3UuemxuREw4VDZvVWVLMVNnNjJPS2d5L0U2MzFkTFBDSUoyZTB6dk9McDBML05HR3I4bSIsIkRhdGUiOiIyMDIyLTA1LTE0VDExOjIwOjQ0LjA1OVoiLCJfX3YiOjAsImlhdCI6MTY1MjYyMjI1N30.e4OsnrGgO3VQId5FCAcYvzcsi_uQF4LiZKTLzbq0Yf0"
 }
