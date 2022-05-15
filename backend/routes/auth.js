@@ -1,8 +1,13 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-const { registerValidation } = require("../utils/validation");
+require("dotenv").config();
+
+const { registerValidation, loginValidation } = require("../utils/validation");
+const generateAccessToken = require("../utils/generateAccessToken");
+const RefreshToken = require("../models/RefreshToken");
 
 router.post("/register", async (req, res) => {
   try {
@@ -36,6 +41,86 @@ router.post("/register", async (req, res) => {
   } catch (error) {
     res.sendStatus(500);
   }
+});
+
+router.post("/login", async (req, res) => {
+  try {
+    // Validating user
+    const { error } = loginValidation(req.body);
+    if (error) return res.status(400).json(error.details[0].message);
+
+    // Making sure email is correct
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) return res.status(400).json("Invalid email or password!");
+
+    // Making sure the password is correct
+    const validPass = await bcrypt.compare(req.body.password, user.password);
+    if (!validPass) return res.status(400).json("Invalid email or password!");
+
+    const userPayload = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      password: user.password,
+    };
+
+    // Generating access token
+    const accessToken = generateAccessToken(userPayload);
+
+    // Generating refresh token
+    const refreshToken = jwt.sign(
+      user.toJSON(),
+      process.env.REFRESH_TOKEN_SECRET
+    );
+
+    // Getting info for refresh token
+    const newRefreshToken = new RefreshToken({
+      refreshToken: refreshToken,
+    });
+
+    // Saving refresh token into db
+    await newRefreshToken.save();
+
+    res.json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    });
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
+router.post("/refresh/token", (req, res) => {
+  // Getting refresh token
+  const refreshToken = req.body.token;
+
+  // Finding refresh token
+  const _refreshToken = RefreshToken.findOne({ refreshToken: refreshToken });
+
+  // Making sure there is a refresh token and that refresh token exists in db
+  if (refreshToken == null) return res.sendStatus(401);
+  if (!_refreshToken) return res.sendStatus(403);
+
+  // Vaifying refresh token
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+
+    const userPayload = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      password: user.password,
+    };
+
+    // Generating access token
+    const accessToken = generateAccessToken(userPayload);
+
+    res.json(accessToken);
+  });
 });
 
 module.exports = router;

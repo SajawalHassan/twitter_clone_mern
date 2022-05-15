@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 
 const authRouter = require("./routes/auth");
+const authenticateToken = require("./utils/authenticateToken");
 
 require("dotenv").config();
 

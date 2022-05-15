@@ -2,7 +2,32 @@ POST http://localhost:5000/auth/register
 Content-Type: application/json
 
 {
-    "username": "bob",
-    "email": "bob@gmail.com",
+    "username": "kyle",
+    "email": "kyle@gmail.com",
     "password": "123456789"
+}
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+    "email": "kyle@gmail.com",
+    "password": "123456789"
+}
+
+###
+
+GET http://localhost:5000/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjgwZjQ4ZWEzZTAyZGNiZDM2ZjllMmIiLCJ1c2VybmFtZSI6Imt5bGUiLCJlbWFpbCI6Imt5bGVAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkblJvMG90QUFKRjREM0E2QUk0YkxWdTdxVXhqekVoODE1bExFODJFMGk2SVl4Smh1WFBXenkiLCJpYXQiOjE2NTI2MjE0NTcsImV4cCI6MTY1MjYyMTQ3Mn0.RHg5YzY-jpYlberR8HD-cmdicL3RdWrYYut2I_hRkuA
+
+###
+
+POST http://localhost:5000/auth/refresh/token
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjgwZjQ4ZWEzZTAyZGNiZDM2ZjllMmIiLCJ1c2VybmFtZSI6Imt5bGUiLCJlbWFpbCI6Imt5bGVAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkblJvMG90QUFKRjREM0E2QUk0YkxWdTdxVXhqekVoODE1bExFODJFMGk2SVl4Smh1WFBXenkiLCJkYXRlIjoiMjAyMi0wNS0xNVQxMjozOToyNi4xNDhaIiwiX192IjowLCJpYXQiOjE2NTI2MjE0MjF9.pgGYZUnBJ2xjBK2DZwRVl0Ax_jtbf4LX4x1uUBTvleQ"
 }
