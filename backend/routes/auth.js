@@ -127,4 +127,14 @@ router.post("/refresh/token", (req, res) => {
   }
 });
 
+router.delete("/logout/:id", async (req, res) => {
+  try {
+    // Deleting refresh token
+    await RefreshToken.findOneAndDelete({ refreshToken: req.body.token });
+    res.json("Successfully logged out");
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
 module.exports = router;

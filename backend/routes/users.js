@@ -8,6 +8,7 @@ const { userEditValidation } = require("../utils/validation");
 
 router.get("/profile/:id", authenticateToken, async (req, res) => {
   try {
+    // Getting user info
     const user = await User.findById(req.params.id);
 
     res.json(user);
@@ -24,6 +25,7 @@ router.put("/edit", authenticateToken, async (req, res) => {
       return res.status(400).json(error.details[0].message);
     }
 
+    // Hashing password
     req.body.password = await bcrypt.hash(req.body.password, 10);
 
     // Updating user info
@@ -32,6 +34,17 @@ router.put("/edit", authenticateToken, async (req, res) => {
     });
 
     res.json("User updated");
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
+router.delete("/delete", authenticateToken, async (req, res) => {
+  try {
+    // Deleting user
+    await User.findByIdAndDelete(req.user._id);
+
+    res.json("User deleted");
   } catch (error) {
     res.sendStatus(500);
   }

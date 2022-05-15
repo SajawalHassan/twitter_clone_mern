@@ -19,13 +19,10 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:5000/users/edit
+DELETE http://localhost:5000/users/delete
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdmOTA5ZDdiNDUwNDdhZGE5OGU2YjciLCJ1c2VybmFtZSI6ImJvYiIsImVtYWlsIjoiYm9iQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJC43dS56bG5ETDhUNm9VZUsxU2c2Mk9LZ3kvRTYzMWRMUENJSjJlMHp2T0xwMEwvTkdHcjhtIiwiaWF0IjoxNjUyNjIyODkzLCJleHAiOjE2NTI2MjM0OTN9.wkxHLcONlOyrIV7Cb6EI4iX_p9FVgUzd38-_TuG1JKI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdmOTA5ZDdiNDUwNDdhZGE5OGU2YjciLCJ1c2VybmFtZSI6ImJvYiIsImVtYWlsIjoiYm9iQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJC43dS56bG5ETDhUNm9VZUsxU2c2Mk9LZ3kvRTYzMWRMUENJSjJlMHp2T0xwMEwvTkdHcjhtIiwiaWF0IjoxNjUyNjIzMTcxLCJleHAiOjE2NTI2MjM3NzF9.kwftlxrJlXp2fYN5EPfUs_uHlq3E7bGRiTOWqSAFbm0
 
-{
-    "password": "123456789"
-}
 
 ###
 
