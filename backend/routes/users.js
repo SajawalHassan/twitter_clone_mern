@@ -21,12 +21,16 @@ router.put("/edit", authenticateToken, async (req, res) => {
   try {
     // Validating info
     const { error } = userEditValidation(req.body);
-    if (error) {
-      return res.status(400).json(error.details[0].message);
+    if (error) return res.status(400).json(error.details[0].message);
+
+    if (req.body == null) {
+      return res.status(400).json("Please fill atleast one field!");
     }
 
     // Hashing password
-    req.body.password = await bcrypt.hash(req.body.password, 10);
+    if (req.body.password) {
+      req.body.password = await bcrypt.hash(req.body.password, 10);
+    }
 
     // Updating user info
     await User.findByIdAndUpdate(req.user._id, {

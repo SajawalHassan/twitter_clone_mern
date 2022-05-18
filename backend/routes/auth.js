@@ -11,7 +11,7 @@ const RefreshToken = require("../models/RefreshToken");
 
 router.post("/register", async (req, res) => {
   try {
-    // Making sure the email doesn't exist already
+    // Making sure the email dosen't already exist
     const emailExists = await User.findOne({ email: req.body.email });
     if (emailExists) {
       return res.status(400).json("Email already exists");
@@ -19,9 +19,7 @@ router.post("/register", async (req, res) => {
 
     // Validating info
     const { error } = registerValidation(req.body);
-    if (error) {
-      return res.status(400).json(error.details[0].message);
-    }
+    if (error) return res.status(400).json(error.details[0].message);
 
     // Hashing password
     const salt = await bcrypt.genSalt(10);
@@ -29,6 +27,7 @@ router.post("/register", async (req, res) => {
 
     // Getting info for new user
     const newUser = new User({
+      displayName: req.body.displayName,
       username: req.body.username,
       email: req.body.email,
       password: hashedPassword,
