@@ -2,8 +2,9 @@ POST http://localhost:5000/auth/register
 Content-Type: application/json
 
 {
-    "username": "kyle",
-    "email": "kyle@gmail.com",
+    "displayName": "bob",
+    "username": "@bob",
+    "email": "bob@gmail.com",
     "password": "123456789"
 }
 
@@ -19,9 +20,13 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:5000/users/delete
+PUT http://localhost:5000/posts/edit/628643630fe78d052e2492e0
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdmOTA5ZDdiNDUwNDdhZGE5OGU2YjciLCJ1c2VybmFtZSI6ImJvYiIsImVtYWlsIjoiYm9iQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJC43dS56bG5ETDhUNm9VZUsxU2c2Mk9LZ3kvRTYzMWRMUENJSjJlMHp2T0xwMEwvTkdHcjhtIiwiaWF0IjoxNjUyNjIzMTcxLCJleHAiOjE2NTI2MjM3NzF9.kwftlxrJlXp2fYN5EPfUs_uHlq3E7bGRiTOWqSAFbm0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg2MzgyYjAwMzNkYTk2ZGRkZjcyYzAiLCJ1c2VybmFtZSI6IkBib2IiLCJlbWFpbCI6ImJvYkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQuVFZhcUxvTjJCU3Vra2V2ejVlbTNPdnNNMWlzY05aUkcyOTk0VlJXRFNleEpNZFlaQTA0ZSIsImlhdCI6MTY1Mjk2NTk4NCwiZXhwIjoxNjUyOTY2NTg0fQ.v6nr-hhDqcNvk3Z19JNzOqfopYkQ7o4jlm-DX5onJSs
+
+{
+    "title": "Post 1 edited!"
+}
 
 
 ###
@@ -30,5 +35,5 @@ POST http://localhost:5000/auth/refresh/token
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRlIjoiMjAyMi0wNS0xNVQxMzo0NDowMi40NTJaIiwiX2lkIjoiNjI3ZjkwOWQ3YjQ1MDQ3YWRhOThlNmI3IiwidXNlcm5hbWUiOiJib2IiLCJlbWFpbCI6ImJvYkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQuN3UuemxuREw4VDZvVWVLMVNnNjJPS2d5L0U2MzFkTFBDSUoyZTB6dk9McDBML05HR3I4bSIsIkRhdGUiOiIyMDIyLTA1LTE0VDExOjIwOjQ0LjA1OVoiLCJfX3YiOjAsImlhdCI6MTY1MjYyMjI1N30.e4OsnrGgO3VQId5FCAcYvzcsi_uQF4LiZKTLzbq0Yf0"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg2MzgyYjAwMzNkYTk2ZGRkZjcyYzAiLCJkaXNwbGF5TmFtZSI6ImJvYiIsInVzZXJuYW1lIjoiQGJvYiIsImVtYWlsIjoiYm9iQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJC5UVmFxTG9OMkJTdWtrZXZ6NWVtM092c00xaXNjTlpSRzI5OTRWUldEU2V4Sk1kWVpBMDRlIiwiZGF0ZSI6IjIwMjItMDUtMTlUMTI6Mjg6NDQuNDE2WiIsIl9fdiI6MCwiaWF0IjoxNjUyOTYzMzgyfQ.BD6I8ljOXRI-J5n4sGn3vq0Q0C9zWRBAqFtskEPLvP8"
 }

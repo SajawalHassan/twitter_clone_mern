@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 
 const authRouter = require("./routes/auth");
 const usersRouter = require("./routes/users");
+const postsRouter = require("./routes/posts");
 
 require("dotenv").config();
 
@@ -22,6 +23,7 @@ app.use(morgan("common"));
 // Routes middleware
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
+app.use("/posts", postsRouter);
 
 // Connecting to db
 mongoose.connect(process.env.DB_ACCESS_KEY, () =>

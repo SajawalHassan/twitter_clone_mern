@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const User = require("../models/User");
-const authenticateToken = require("../utils/authenticateToken");
+const authenticateToken = require("../middlewares/authenticateToken");
 const bcrypt = require("bcrypt");
 
 const { userEditValidation } = require("../utils/validation");

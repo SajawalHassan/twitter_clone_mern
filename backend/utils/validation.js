@@ -29,3 +29,12 @@ module.exports.userEditValidation = (data) => {
 
   return schema.validate(data);
 };
+
+module.exports.postsValidation = (data) => {
+  const schema = Joi.object({
+    title: Joi.string().max(280),
+    picture: Joi.string(),
+  });
+
+  return schema.validate(data);
+};
