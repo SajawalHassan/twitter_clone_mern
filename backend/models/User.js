@@ -25,6 +25,10 @@ const userSchema = mongoose.Schema({
     min: 8,
     max: 1024,
   },
+  likedPosts: {
+    type: Array,
+    default: [],
+  },
   date: {
     type: Date,
     default: Date.now(),

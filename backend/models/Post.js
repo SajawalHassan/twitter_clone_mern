@@ -10,6 +10,10 @@ const postSchema = mongoose.Schema({
     type: String,
     default: "",
   },
+  likes: {
+    type: Array,
+    default: [],
+  },
   ownerId: {
     type: String,
     default: "",

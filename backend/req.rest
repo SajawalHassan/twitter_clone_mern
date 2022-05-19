@@ -2,9 +2,9 @@ POST http://localhost:5000/auth/register
 Content-Type: application/json
 
 {
-    "displayName": "kyle",
-    "username": "@kyle",
-    "email": "kyle@gmail.com",
+    "displayName": "bob",
+    "username": "bob",
+    "email": "bob@gmail.com",
     "password": "123456789"
 }
 
@@ -14,20 +14,15 @@ POST http://localhost:5000/auth/login
 Content-Type: application/json
 
 {
-    "email": "kyle@gmail.com",
+    "email": "bob@gmail.com",
     "password": "123456789"
 }
 
 ###
 
-DELETE http://localhost:5000/posts/delete/6286480c253c85dba139b3ff
+PUT http://localhost:5000/posts/like/62866cf4c04b850ee8e6cc38
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg2MzgyYjAwMzNkYTk2ZGRkZjcyYzAiLCJ1c2VybmFtZSI6IkBib2IiLCJlbWFpbCI6ImJvYkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQuVFZhcUxvTjJCU3Vra2V2ejVlbTNPdnNNMWlzY05aUkcyOTk0VlJXRFNleEpNZFlaQTA0ZSIsImlhdCI6MTY1Mjk2NzM5NywiZXhwIjoxNjUyOTY3OTk3fQ.nhlAj3_au__Z5K3KvzC37L5zCbihDIilOvrPZBr2ByM
-
-{
-    "title": "Post 1"
-}
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg2NmM5YWMwNGI4NTBlZThlNmNjMzMiLCJ1c2VybmFtZSI6ImJvYiIsImVtYWlsIjoiYm9iQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJFBBWnk3QVpsTHdvR0dCLzhPNEZHSk9mYjlUWTVEbko1OEhmVmpBREtwbVJYbVB3aHhlS2d1IiwiaWF0IjoxNjUyOTc3NDE0LCJleHAiOjE2NTI5NzgwMTR9.zTN95nXaiZqcj4MQha7t3Wb1kUX14Tnd8j8lQt2umIA
 
 ###
 
@@ -35,5 +30,5 @@ POST http://localhost:5000/auth/refresh/token
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg2MzgyYjAwMzNkYTk2ZGRkZjcyYzAiLCJkaXNwbGF5TmFtZSI6ImJvYiIsInVzZXJuYW1lIjoiQGJvYiIsImVtYWlsIjoiYm9iQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJC5UVmFxTG9OMkJTdWtrZXZ6NWVtM092c00xaXNjTlpSRzI5OTRWUldEU2V4Sk1kWVpBMDRlIiwiZGF0ZSI6IjIwMjItMDUtMTlUMTI6Mjg6NDQuNDE2WiIsIl9fdiI6MCwiaWF0IjoxNjUyOTYzMzgyfQ.BD6I8ljOXRI-J5n4sGn3vq0Q0C9zWRBAqFtskEPLvP8"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg2NmM5YWMwNGI4NTBlZThlNmNjMzMiLCJkaXNwbGF5TmFtZSI6ImJvYiIsInVzZXJuYW1lIjoiYm9iIiwiZW1haWwiOiJib2JAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkUEFaeTdBWmxMd29HR0IvOE80RkdKT2ZiOVRZNURuSjU4SGZWakFES3BtUlhtUHdoeGVLZ3UiLCJsaWtlZFBvc3RzIjpbXSwiZGF0ZSI6IjIwMjItMDUtMTlUMTY6MTI6MzMuODc0WiIsIl9fdiI6MCwiaWF0IjoxNjUyOTc2Nzk3fQ.cm1lJKjPdDEN3-o6TGO41AeXUeC8jUDsyuHJf_XJCmY"
 }

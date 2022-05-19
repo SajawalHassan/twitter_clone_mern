@@ -11,11 +11,16 @@ const RefreshToken = require("../models/RefreshToken");
 
 router.post("/register", async (req, res) => {
   try {
+    // username validation
+    const usernameExists = await User.findOne({ username: req.body.username });
+    if (usernameExists) return res.status(400).json("Username already exists");
+    if (req.body.username.includes(" ")) {
+      return res.status(400).json("username cannot have spaces");
+    }
+
     // Making sure the email dosen't already exist
     const emailExists = await User.findOne({ email: req.body.email });
-    if (emailExists) {
-      return res.status(400).json("Email already exists");
-    }
+    if (emailExists) return res.status(400).json("Email already exists");
 
     // Validating info
     const { error } = registerValidation(req.body);

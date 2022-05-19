@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const authenticateToken = require("../middlewares/authenticateToken");
 const Post = require("../models/Post");
+const User = require("../models/User");
 
 const { postsValidation } = require("../utils/validation");
 
@@ -67,6 +68,37 @@ router.delete("/delete/:id", authenticateToken, async (req, res) => {
     await post.deleteOne();
 
     res.json("Post has been deleted!");
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
+router.put("/like/:id", authenticateToken, async (req, res) => {
+  try {
+    // Finding post
+    const post = await Post.findById(req.params.id);
+
+    // Removing user id from the likes array if post is already liked
+    if (post.likes.includes(req.user._id)) {
+      await post.updateOne({ $pull: { likes: req.user._id } });
+
+      // Removing post id from users liked posts
+      await User.findByIdAndUpdate(req.user._id, {
+        $pull: { likedPosts: post._id },
+      });
+
+      return res.json("Like removed");
+    }
+
+    // Adding user id to posts likes array
+    await post.updateOne({ $push: { likes: req.user._id } });
+
+    // Adding post id to user liked posts
+    await User.findByIdAndUpdate(req.user._id, {
+      $push: { likedPosts: post._id },
+    });
+
+    res.json("Like added!");
   } catch (error) {
     res.sendStatus(500);
   }
