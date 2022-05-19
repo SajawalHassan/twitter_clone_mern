@@ -20,7 +20,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:5000/posts/create
+DELETE http://localhost:5000/posts/delete/6286480c253c85dba139b3ff
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg2MzgyYjAwMzNkYTk2ZGRkZjcyYzAiLCJ1c2VybmFtZSI6IkBib2IiLCJlbWFpbCI6ImJvYkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQuVFZhcUxvTjJCU3Vra2V2ejVlbTNPdnNNMWlzY05aUkcyOTk0VlJXRFNleEpNZFlaQTA0ZSIsImlhdCI6MTY1Mjk2NzM5NywiZXhwIjoxNjUyOTY3OTk3fQ.nhlAj3_au__Z5K3KvzC37L5zCbihDIilOvrPZBr2ByM
 

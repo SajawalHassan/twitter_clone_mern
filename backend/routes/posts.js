@@ -45,10 +45,28 @@ router.put("/edit/:id", authenticateToken, async (req, res) => {
       return res.status(400).json("Fill one of the fields");
     }
 
-    // Editing post
+    // Updating post
     await post.updateOne({ $set: req.body });
 
     res.json("Post has been updated!");
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
+router.delete("/delete/:id", authenticateToken, async (req, res) => {
+  try {
+    // Finding post
+    const post = await Post.findById(req.params.id);
+
+    if (post.ownerId !== req.user._id) {
+      return res.status(400).json("You're not the owner of this post");
+    }
+
+    // Deleting post
+    await post.deleteOne();
+
+    res.json("Post has been deleted!");
   } catch (error) {
     res.sendStatus(500);
   }
