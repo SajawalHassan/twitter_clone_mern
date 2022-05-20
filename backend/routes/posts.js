@@ -104,4 +104,26 @@ router.put("/like/:id", authenticateToken, async (req, res) => {
   }
 });
 
+router.post("/retweet/:id", authenticateToken, async (req, res) => {
+  try {
+    // Finding post
+    const post = await Post.findById(req.params.id);
+
+    // Getting info for new post
+    const newPost = new Post({
+      title: post.title,
+      picture: post.picture,
+      ownerId: post.ownerId,
+      repostOwnerId: req.user._id,
+    });
+
+    // Adding post to db
+    await newPost.save();
+
+    res.json("Post retweeted!");
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
 module.exports = router;

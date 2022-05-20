@@ -16,6 +16,10 @@ const postSchema = mongoose.Schema({
   },
   ownerId: {
     type: String,
+    required: true,
+  },
+  repostOwnerId: {
+    type: String,
     default: "",
   },
   date: {

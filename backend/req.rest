@@ -2,9 +2,9 @@ POST http://localhost:5000/auth/register
 Content-Type: application/json
 
 {
-    "displayName": "bob",
-    "username": "bob",
-    "email": "bob@gmail.com",
+    "displayName": "kyle",
+    "username": "kyle",
+    "email": "kyle@gmail.com",
     "password": "123456789"
 }
 
@@ -14,15 +14,15 @@ POST http://localhost:5000/auth/login
 Content-Type: application/json
 
 {
-    "email": "bob@gmail.com",
+    "email": "kyle@gmail.com",
     "password": "123456789"
 }
 
 ###
 
-PUT http://localhost:5000/posts/like/62866cf4c04b850ee8e6cc38
+POST http://localhost:5000/posts/retweet/62866cf4c04b850ee8e6cc38
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg2NmM5YWMwNGI4NTBlZThlNmNjMzMiLCJ1c2VybmFtZSI6ImJvYiIsImVtYWlsIjoiYm9iQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJFBBWnk3QVpsTHdvR0dCLzhPNEZHSk9mYjlUWTVEbko1OEhmVmpBREtwbVJYbVB3aHhlS2d1IiwiaWF0IjoxNjUyOTc3NDE0LCJleHAiOjE2NTI5NzgwMTR9.zTN95nXaiZqcj4MQha7t3Wb1kUX14Tnd8j8lQt2umIA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg3ODIwYTlhNDE5YjkzMzhhZWI2NDAiLCJ1c2VybmFtZSI6Imt5bGUiLCJlbWFpbCI6Imt5bGVAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkbDNEMDNKaFJhVDNxOC5yblJSV0pxT0N2VjhSQ0thQlRjLk52TEZweGFHTlZpQTZxTEZIcnkiLCJpYXQiOjE2NTMwNDc4MjQsImV4cCI6MTY1MzA0ODQyNH0.uJsd3ajdPdOnjcrXx7eHyqz7CSkMtl78hUpY0gM31MY
 
 ###
 
