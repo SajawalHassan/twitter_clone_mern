@@ -63,9 +63,15 @@ router.post("/login", async (req, res) => {
 
     const userPayload = {
       _id: user._id,
+      displayName: user.displayName,
       username: user.username,
       email: user.email,
       password: user.password,
+      bookmarkedTweets: user.bookmarkedTweets,
+      likedTweets: user.likedTweets,
+      followers: user.followers,
+      following: user.following,
+      date: user.date,
     };
 
     // Generating access token
@@ -87,11 +93,15 @@ router.post("/login", async (req, res) => {
 
     res.json({
       _id: user._id,
+      displayName: user.displayName,
       username: user.username,
       email: user.email,
       password: user.password,
-      accessToken: accessToken,
-      refreshToken: refreshToken,
+      bookmarkedTweets: user.bookmarkedTweets,
+      likedTweets: user.likedTweets,
+      followers: user.followers,
+      following: user.following,
+      date: user.date,
     });
   } catch (error) {
     res.sendStatus(500);
@@ -116,9 +126,15 @@ router.post("/refresh/token", (req, res) => {
 
       const userPayload = {
         _id: user._id,
+        displayName: user.displayName,
         username: user.username,
         email: user.email,
         password: user.password,
+        bookmarkedTweets: user.bookmarkedTweets,
+        likedTweets: user.likedTweets,
+        followers: user.followers,
+        following: user.following,
+        date: user.date,
       };
 
       // Generating access token

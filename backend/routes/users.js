@@ -56,17 +56,23 @@ router.delete("/delete", authenticateToken, async (req, res) => {
 
 router.put("/follow/:id", authenticateToken, async (req, res) => {
   try {
+    // Finding the user that wants to follow (user) and the one that is being followed (userFollowing)
     const user = await User.findById(req.user._id);
     const userFollowing = await User.findById(req.params.id);
 
+    // Checking if the user is already following userFollowing
     if (user.following.includes(req.params.id)) {
+      // Removing userFollowing id from users following id
       await user.updateOne({ $pull: { following: req.params.id } });
+      // Removing users id from userFollowing followers id
       await userFollowing.updateOne({ $pull: { followers: req.user._id } });
 
       return res.json("User has been unfollowed");
     }
 
+    // Adding userFollowing id to users following id
     await user.updateOne({ $push: { following: req.params.id } });
+    // Adding users id to userFollowing followers id
     await userFollowing.updateOne({ $push: { followers: req.user._id } });
 
     res.json("User has been followed");

@@ -20,12 +20,13 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:5000/users/follow/628896c4343f1e960c9ff33e
+GET http://localhost:5000/lists/get/6288f21e789365d901b4c7ee
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg4OTY5YTM0M2YxZTk2MGM5ZmYzMzciLCJ1c2VybmFtZSI6ImJvYiIsImVtYWlsIjoiYm9iQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJGtjTHlKSWVJQXhrNGxjY0xrd3Z1dnV3Y0pLUDZJN3FYekx5eU4xOEdxd0tnTkZ6RE5nZGphIiwiaWF0IjoxNjUzMTE4ODU2LCJleHAiOjE2NTMxMTk0NTZ9.-qZkKPedQbU9hzrQIf9xm0fdkoNM_n4wXAOXOeAXcXo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg4OTY5YTM0M2YxZTk2MGM5ZmYzMzciLCJkaXNwbGF5TmFtZSI6ImJvYiIsInVzZXJuYW1lIjoiYm9iIiwiZW1haWwiOiJib2JAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAka2NMeUpJZUlBeGs0bGNjTGt3dnV2dXdjSktQNkk3cVh6THl5TjE4R3F3S2dORnpETmdkamEiLCJib29rbWFya2VkVHdlZXRzIjpbXSwibGlrZWRUd2VldHMiOltdLCJmb2xsb3dlcnMiOltdLCJmb2xsb3dpbmciOltdLCJkYXRlIjoiMjAyMi0wNS0yMVQwNzozNDoxMC41NTZaIiwiaWF0IjoxNjUzMTQxODcwLCJleHAiOjE2NTMxNDI0NzB9.38_SGFvglUnsZBKkdEdFtqt-4-X1bbIYy7bjt5pZY14
 
 {   
-    "title": "hashtag 1"
+    "title": "List 1",
+    "members": ["6288969a343f1e960c9ff337", "628896c4343f1e960c9ff33e"]
 }
 
 ###
