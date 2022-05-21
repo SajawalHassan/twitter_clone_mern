@@ -54,4 +54,26 @@ router.delete("/delete", authenticateToken, async (req, res) => {
   }
 });
 
+router.put("/follow/:id", authenticateToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const userFollowing = await User.findById(req.params.id);
+
+    if (user.following.includes(req.params.id)) {
+      await user.updateOne({ $pull: { following: req.params.id } });
+      await userFollowing.updateOne({ $pull: { followers: req.user._id } });
+
+      return res.json("User has been unfollowed");
+    }
+
+    await user.updateOne({ $push: { following: req.params.id } });
+    await userFollowing.updateOne({ $push: { followers: req.user._id } });
+
+    res.json("User has been followed");
+  } catch (error) {
+    res.sendStatus(500);
+    console.log(error);
+  }
+});
+
 module.exports = router;

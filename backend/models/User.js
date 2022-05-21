@@ -33,6 +33,14 @@ const userSchema = mongoose.Schema({
     type: Array,
     default: [],
   },
+  followers: {
+    type: Array,
+    default: [],
+  },
+  following: {
+    type: Array,
+    default: [],
+  },
   date: {
     type: Date,
     default: Date.now(),

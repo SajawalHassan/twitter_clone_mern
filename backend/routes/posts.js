@@ -144,7 +144,18 @@ router.put("/bookmark/:id", authenticateToken, async (req, res) => {
 
     res.json("Post bookmarked!");
   } catch (error) {
-    res.status(500);
+    res.sendStatus(500);
+  }
+});
+
+router.get("/get", authenticateToken, async (req, res) => {
+  try {
+    // Getting all posts
+    const posts = await Post.find();
+
+    res.json(posts);
+  } catch (error) {
+    res.sendStatus(500);
   }
 });
 
