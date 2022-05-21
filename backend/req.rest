@@ -2,9 +2,9 @@ POST http://localhost:5000/auth/register
 Content-Type: application/json
 
 {
-    "displayName": "kyle",
-    "username": "kyle",
-    "email": "kyle@gmail.com",
+    "displayName": "ashley",
+    "username": "ashley",
+    "email": "ashley@gmail.com",
     "password": "123456789"
 }
 
@@ -14,19 +14,18 @@ POST http://localhost:5000/auth/login
 Content-Type: application/json
 
 {
-    "email": "kyle@gmail.com",
+    "email": "ashley@gmail.com",
     "password": "123456789"
 }
 
 ###
 
-GET http://localhost:5000/lists/get/6288f21e789365d901b4c7ee
+POST http://localhost:5000/posts/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg4OTY5YTM0M2YxZTk2MGM5ZmYzMzciLCJkaXNwbGF5TmFtZSI6ImJvYiIsInVzZXJuYW1lIjoiYm9iIiwiZW1haWwiOiJib2JAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAka2NMeUpJZUlBeGs0bGNjTGt3dnV2dXdjSktQNkk3cVh6THl5TjE4R3F3S2dORnpETmdkamEiLCJib29rbWFya2VkVHdlZXRzIjpbXSwibGlrZWRUd2VldHMiOltdLCJmb2xsb3dlcnMiOltdLCJmb2xsb3dpbmciOltdLCJkYXRlIjoiMjAyMi0wNS0yMVQwNzozNDoxMC41NTZaIiwiaWF0IjoxNjUzMTQxODcwLCJleHAiOjE2NTMxNDI0NzB9.38_SGFvglUnsZBKkdEdFtqt-4-X1bbIYy7bjt5pZY14
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg5MTg3ODk3ZDY5MWRjNjNkYTRiNGYiLCJkaXNwbGF5TmFtZSI6ImFzaGxleSIsInVzZXJuYW1lIjoiYXNobGV5IiwiZW1haWwiOiJhc2hsZXlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkMnVHcEtLNk5QTzVycHc5MXIvZnBqLjZlR055N1BPRUNkTmFKNFV2bE41SGFnRGRITi5mOXEiLCJib29rbWFya2VkVHdlZXRzIjpbXSwibGlrZWRUd2VldHMiOltdLCJmb2xsb3dlcnMiOltdLCJmb2xsb3dpbmciOltdLCJkYXRlIjoiMjAyMi0wNS0yMVQxNjo1MDozOC40MjdaIiwiaWF0IjoxNjUzMTUxODc5LCJleHAiOjE2NTMxNTI0Nzl9.3ci6Ro-kxsdJuJFnCq1tqVYyDCatSbt1KZ9FomtVo7s
 
 {   
-    "title": "List 1",
-    "members": ["6288969a343f1e960c9ff337", "628896c4343f1e960c9ff33e"]
+    "title": "Post 3"
 }
 
 ###

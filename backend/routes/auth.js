@@ -102,6 +102,8 @@ router.post("/login", async (req, res) => {
       followers: user.followers,
       following: user.following,
       date: user.date,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
     });
   } catch (error) {
     res.sendStatus(500);

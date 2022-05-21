@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const authenticateToken = require("../middlewares/authenticateToken");
 const List = require("../models/List");
+const Post = require("../models/Post");
 
-const { listsValidation } = require("../utils/validation");
+const { listsValidation, listsEditValidation } = require("../utils/validation");
 
 router.post("/create", authenticateToken, async (req, res) => {
   try {
@@ -31,8 +32,11 @@ router.get("/get/:id", authenticateToken, async (req, res) => {
   try {
     // Finding list
     const list = await List.findById(req.params.id);
+    const members = await list.members;
+    const posts = await Post.find({ ownerId: members });
+    console.log(members[0]);
 
-    res.json(list);
+    res.json(posts);
   } catch (error) {
     res.sendStatus(500);
     console.log(error);

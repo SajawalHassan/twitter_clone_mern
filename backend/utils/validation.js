@@ -48,3 +48,13 @@ module.exports.listsValidation = (data) => {
 
   return schema.validate(data);
 };
+
+module.exports.listsEditValidation = (data) => {
+  const schema = Joi.object({
+    title: Joi.string().max(280),
+    description: Joi.string().default(""),
+    members: Joi.array(),
+  });
+
+  return schema.validate(data);
+};
