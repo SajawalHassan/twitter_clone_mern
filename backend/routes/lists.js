@@ -27,4 +27,16 @@ router.post("/create", authenticateToken, async (req, res) => {
   }
 });
 
+router.get("/get/:id", authenticateToken, async (req, res) => {
+  try {
+    // Finding list
+    const list = await List.findById(req.params.id);
+
+    res.json(list);
+  } catch (error) {
+    res.sendStatus(500);
+    console.log(error);
+  }
+});
+
 module.exports = router;
