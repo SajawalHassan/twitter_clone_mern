@@ -84,7 +84,7 @@ router.put("/like/:id", authenticateToken, async (req, res) => {
 
       // Removing post id from users liked posts
       await User.findByIdAndUpdate(req.user._id, {
-        $pull: { likedPosts: post._id },
+        $pull: { likedTweets: post._id },
       });
 
       return res.json("Like removed");
@@ -95,7 +95,7 @@ router.put("/like/:id", authenticateToken, async (req, res) => {
 
     // Adding post id to user liked posts
     await User.findByIdAndUpdate(req.user._id, {
-      $push: { likedPosts: post._id },
+      $push: { likedTweets: post._id },
     });
 
     res.json("Like added!");
@@ -123,6 +123,28 @@ router.post("/retweet/:id", authenticateToken, async (req, res) => {
     res.json("Post retweeted!");
   } catch (error) {
     res.sendStatus(500);
+  }
+});
+
+router.put("/bookmark/:id", authenticateToken, async (req, res) => {
+  try {
+    // Finding post and user
+    const post = await Post.findById(req.params.id);
+    const user = await User.findById(req.user._id);
+
+    // Removing the post id from users bookmarked tweets if it is already bookmarked
+    if (user.bookmarkedTweets.includes(post._id)) {
+      await user.updateOne({ $pull: { bookmarkedTweets: post._id } });
+
+      return res.json("Bookmark removed");
+    }
+
+    // Adding the post id to users bookmarked tweets
+    await user.updateOne({ $push: { bookmarkedTweets: post._id } });
+
+    res.json("Post bookmarked!");
+  } catch (error) {
+    res.status(500);
   }
 });
 

@@ -25,7 +25,11 @@ const userSchema = mongoose.Schema({
     min: 8,
     max: 1024,
   },
-  likedPosts: {
+  bookmarkedTweets: {
+    type: Array,
+    default: [],
+  },
+  likedTweets: {
     type: Array,
     default: [],
   },

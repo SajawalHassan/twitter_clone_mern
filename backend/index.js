@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const authRouter = require("./routes/auth");
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
+const trendsRouter = require("./routes/trends");
 
 require("dotenv").config();
 
@@ -24,6 +25,7 @@ app.use(morgan("common"));
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
 app.use("/posts", postsRouter);
+app.use("/hashtags", trendsRouter);
 
 // Connecting to db
 mongoose.connect(process.env.DB_ACCESS_KEY, () =>
