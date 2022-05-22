@@ -148,14 +148,17 @@ router.put("/bookmark/:id", authenticateToken, async (req, res) => {
   }
 });
 
-router.get("/get", authenticateToken, async (req, res) => {
+router.get("/recommendation", authenticateToken, async (req, res) => {
   try {
-    // Getting all posts
-    const posts = await Post.find();
+    const user = await User.findById(req.user._id);
+    const following = await user.following;
+    console.log(following);
+    const posts = await Post.find({ ownerId: following });
 
     res.json(posts);
   } catch (error) {
     res.sendStatus(500);
+    console.log(error);
   }
 });
 
