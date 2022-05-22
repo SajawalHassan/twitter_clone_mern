@@ -3,7 +3,7 @@ const authenticateToken = require("../middlewares/authenticateToken");
 const List = require("../models/List");
 const Post = require("../models/Post");
 
-const { listsValidation } = require("../utils/validation");
+const { listsValidation, listsEditValidation } = require("../utils/validation");
 
 router.post("/create", authenticateToken, async (req, res) => {
   try {
@@ -28,6 +28,28 @@ router.post("/create", authenticateToken, async (req, res) => {
   }
 });
 
+router.put("/edit/:id", authenticateToken, async (req, res) => {
+  try {
+    // Validating info
+    const { error } = listsEditValidation(req.body);
+    if (error) return res.status(400).json(error.details[0].message);
+    if (
+      (req.body.title == null) &
+      (req.body.description == null) &
+      (req.body.members == null)
+    ) {
+      return res.status(400).json("Please fill atleast one field!");
+    }
+
+    // Updating list info
+    await List.findByIdAndUpdate(req.params.id, { $set: req.body });
+
+    res.json("List has been updated!");
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
 router.get("/get/:id", authenticateToken, async (req, res) => {
   try {
     // Finding list
@@ -40,7 +62,6 @@ router.get("/get/:id", authenticateToken, async (req, res) => {
     res.json(posts);
   } catch (error) {
     res.sendStatus(500);
-    console.log(error);
   }
 });
 
