@@ -150,15 +150,16 @@ router.put("/bookmark/:id", authenticateToken, async (req, res) => {
 
 router.get("/recommendation", authenticateToken, async (req, res) => {
   try {
+    // Getting user
     const user = await User.findById(req.user._id);
+    // Getting all accounts that user is following
     const following = await user.following;
-    console.log(following);
+    // Finding all posts from the accounts that user is following
     const posts = await Post.find({ ownerId: following });
 
     res.json(posts);
   } catch (error) {
     res.sendStatus(500);
-    console.log(error);
   }
 });
 
