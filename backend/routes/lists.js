@@ -30,6 +30,12 @@ router.post("/create", authenticateToken, async (req, res) => {
 
 router.put("/edit/:id", authenticateToken, async (req, res) => {
   try {
+    const list = await List.findById(req.params.id);
+
+    if (list.ownerId !== req.user._id) {
+      return res.status(400).json("You're not the owner of this post");
+    }
+
     // Validating info
     const { error } = listsEditValidation(req.body);
     if (error) return res.status(400).json(error.details[0].message);
@@ -42,9 +48,26 @@ router.put("/edit/:id", authenticateToken, async (req, res) => {
     }
 
     // Updating list info
-    await List.findByIdAndUpdate(req.params.id, { $set: req.body });
+    await list.updateOne({ $set: req.body });
 
     res.json("List has been updated!");
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
+router.delete("/delete/:id", authenticateToken, async (req, res) => {
+  try {
+    const list = await List.findById(req.params.id);
+
+    if (list.ownerId !== req.user._id) {
+      return res.status(400).json("You're not the owner of this post");
+    }
+
+    // Deleting list
+    await list.deleteOne();
+
+    res.json("List deleted!");
   } catch (error) {
     res.sendStatus(500);
   }

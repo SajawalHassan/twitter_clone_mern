@@ -9,6 +9,7 @@ const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
 const trendsRouter = require("./routes/trends");
 const listsRouter = require("./routes/lists");
+const repliesRouter = require("./routes/replies");
 
 require("dotenv").config();
 
@@ -28,6 +29,7 @@ app.use("/users", usersRouter);
 app.use("/posts", postsRouter);
 app.use("/trends", trendsRouter);
 app.use("/lists", listsRouter);
+app.use("/replies", repliesRouter);
 
 // Connecting to db
 mongoose.connect(process.env.DB_ACCESS_KEY, () =>

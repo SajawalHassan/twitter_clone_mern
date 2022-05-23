@@ -58,3 +58,20 @@ module.exports.listsEditValidation = (data) => {
 
   return schema.validate(data);
 };
+
+module.exports.repliesValidation = (data) => {
+  const schema = Joi.object({
+    content: Joi.string().required().min(1),
+    postId: Joi.string().required().min(1),
+  });
+
+  return schema.validate(data);
+};
+
+module.exports.repliesEditValidation = (data) => {
+  const schema = Joi.object({
+    content: Joi.string().required().min(1),
+  });
+
+  return schema.validate(data);
+};

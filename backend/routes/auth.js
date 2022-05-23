@@ -8,6 +8,7 @@ require("dotenv").config();
 const { registerValidation, loginValidation } = require("../utils/validation");
 const generateAccessToken = require("../utils/generateAccessToken");
 const RefreshToken = require("../models/RefreshToken");
+const authenticateToken = require("../middlewares/authenticateToken");
 
 router.post("/register", async (req, res) => {
   try {
@@ -149,7 +150,7 @@ router.post("/refresh/token", (req, res) => {
   }
 });
 
-router.delete("/logout/:id", async (req, res) => {
+router.delete("/logout", authenticateToken, async (req, res) => {
   try {
     // Deleting refresh token
     await RefreshToken.findOneAndDelete({ refreshToken: req.body.token });

@@ -5,6 +5,8 @@ const authenticateToken = require("../middlewares/authenticateToken");
 const bcrypt = require("bcrypt");
 
 const { userEditValidation } = require("../utils/validation");
+const Post = require("../models/Post");
+const List = require("../models/List");
 
 router.get("/profile/:id", authenticateToken, async (req, res) => {
   try {
@@ -45,8 +47,11 @@ router.put("/edit", authenticateToken, async (req, res) => {
 
 router.delete("/delete", authenticateToken, async (req, res) => {
   try {
-    // Deleting user
-    await User.findByIdAndDelete(req.user._id);
+    // Finding user, deleting its posts and lists and deleting user
+    const user = await User.findById(req.user._id);
+    await Post.findOneAndDelete({ ownerId: user._id });
+    await List.findOneAndDelete({ ownerId: user._id });
+    await user.deleteOne();
 
     res.json("User deleted");
   } catch (error) {
