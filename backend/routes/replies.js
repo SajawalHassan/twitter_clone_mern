@@ -31,8 +31,10 @@ router.post("/create", authenticateToken, async (req, res) => {
 
 router.put("/edit/:id", authenticateToken, async (req, res) => {
   try {
+    // Finding reply
     const reply = await Reply.findById(req.params.id);
 
+    // Making sure user is owner of reply
     if (reply.ownerId !== req.user._id) {
       return res.status(400).json("You're not the owner of this post");
     }
@@ -48,6 +50,25 @@ router.put("/edit/:id", authenticateToken, async (req, res) => {
     await reply.updateOne({ $set: req.body });
 
     res.json("Reply has been updated!");
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
+router.delete("/delete/:id", authenticateToken, async (req, res) => {
+  try {
+    // Finding reply
+    const reply = await Reply.findById(req.params.id);
+
+    // Making sure user is owner of reply
+    if (reply.ownerId !== req.user._id) {
+      return res.status(400).json("You're not the owner of this post");
+    }
+
+    // Updating list info
+    await reply.deleteOne();
+
+    res.json("Reply has been deleted!");
   } catch (error) {
     res.sendStatus(500);
   }
