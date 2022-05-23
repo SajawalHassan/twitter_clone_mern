@@ -29,4 +29,28 @@ router.post("/create", authenticateToken, async (req, res) => {
   }
 });
 
+router.put("/edit/:id", authenticateToken, async (req, res) => {
+  try {
+    const reply = await Reply.findById(req.params.id);
+
+    if (reply.ownerId !== req.user._id) {
+      return res.status(400).json("You're not the owner of this post");
+    }
+
+    // Validating info
+    const { error } = repliesEditValidation(req.body);
+    if (error) return res.status(400).json(error.details[0].message);
+    if (req.body.content == null) {
+      return res.status(400).json("Please fill atleast one field!");
+    }
+
+    // Updating list info
+    await reply.updateOne({ $set: req.body });
+
+    res.json("Reply has been updated!");
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
 module.exports = router;
