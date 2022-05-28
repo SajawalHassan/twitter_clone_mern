@@ -2,9 +2,9 @@ POST http://localhost:5000/auth/register
 Content-Type: application/json
 
 {
-    "displayName": "kyle",
-    "username": "kyle",
-    "email": "kyle@gmail.com",
+    "displayName": "bob",
+    "username": "bob",
+    "email": "bob@gmail.com",
     "password": "123456789"
 }
 
@@ -43,5 +43,5 @@ DELETE http://localhost:5000/auth/logout
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjg5YTlmMGRmYWUyN2NlZTk0YzIxODgiLCJkaXNwbGF5TmFtZSI6ImJvYiIsInVzZXJuYW1lIjoiYm9iIiwiZW1haWwiOiJib2JAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkSzEvSlpnd0h2amlSSHUwUFpsUy9pZXZhRVlCc252OWpCcm1WWERtb21za1JtRDFnYWlMTG0iLCJib29rbWFya2VkVHdlZXRzIjpbXSwibGlrZWRUd2VldHMiOltdLCJmb2xsb3dlcnMiOltdLCJmb2xsb3dpbmciOltdLCJkYXRlIjoiMjAyMi0wNS0yMlQwMzowODoyNS40MDRaIiwiX192IjowLCJpYXQiOjE2NTMyOTg4MzZ9.q9W7xfwwl0Vn_YL31rXmffY6TlrLq3CDFpccxpDj2b4"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjkxOWI1NzEyZTRkN2IzNmZjMjQ2NDkiLCJkaXNwbGF5TmFtZSI6ImJvYiIsInVzZXJuYW1lIjoiYm9iIiwiZW1haWwiOiJib2JAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkUUlCbWczdElCVHo2ampibEp0a0pFT2VQYXJ0ZW9vdzE4aW9hdkRTSnZFNnhFUmczSzUzSVMiLCJib29rbWFya2VkVHdlZXRzIjpbXSwibGlrZWRUd2VldHMiOltdLCJmb2xsb3dlcnMiOltdLCJmb2xsb3dpbmciOltdLCJkYXRlIjoiMjAyMi0wNS0yOFQwMzoyNjoyMC4xMzhaIiwiX192IjowLCJpYXQiOjE2NTM3MDk2NjB9.A_84biZs5qmVIuKVS74Icu24zOoX_STtbIcbTTEYGco"
 }

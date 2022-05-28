@@ -67,7 +67,6 @@ router.post("/login", async (req, res) => {
       displayName: user.displayName,
       username: user.username,
       email: user.email,
-      password: user.password,
       bookmarkedTweets: user.bookmarkedTweets,
       likedTweets: user.likedTweets,
       followers: user.followers,
@@ -108,6 +107,7 @@ router.post("/login", async (req, res) => {
     });
   } catch (error) {
     res.sendStatus(500);
+    console.log(error);
   }
 });
 
@@ -132,7 +132,6 @@ router.post("/refresh/token", (req, res) => {
         displayName: user.displayName,
         username: user.username,
         email: user.email,
-        password: user.password,
         bookmarkedTweets: user.bookmarkedTweets,
         likedTweets: user.likedTweets,
         followers: user.followers,
@@ -150,7 +149,7 @@ router.post("/refresh/token", (req, res) => {
   }
 });
 
-router.delete("/logout", authenticateToken, async (req, res) => {
+router.delete("/logout", async (req, res) => {
   try {
     // Deleting refresh token
     await RefreshToken.findOneAndDelete({ refreshToken: req.body.token });
