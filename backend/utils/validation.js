@@ -2,10 +2,13 @@ const Joi = require("@hapi/joi");
 
 module.exports.registerValidation = (data) => {
   const schema = Joi.object({
-    displayName: Joi.string().required().min(3).max(255),
+    displayname: Joi.string().required().min(3).max(255),
     username: Joi.string().required().min(3).max(255),
     email: Joi.string().required().min(3).max(255).email(),
     password: Joi.string().required().min(8).max(1024),
+    month: Joi.number().required(),
+    day: Joi.number().required(),
+    year: Joi.number().required(),
   });
 
   return schema.validate(data);
@@ -22,9 +25,13 @@ module.exports.loginValidation = (data) => {
 
 module.exports.userEditValidation = (data) => {
   const schema = Joi.object({
+    displayname: Joi.string().min(3).max(255),
     username: Joi.string().min(3).max(255),
     email: Joi.string().min(3).max(255).email(),
     password: Joi.string().min(8).max(1024),
+    month: Joi.number(),
+    day: Joi.number(),
+    year: Joi.number(),
   });
 
   return schema.validate(data);

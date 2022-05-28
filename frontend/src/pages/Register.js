@@ -11,10 +11,20 @@ import {
 import axios from "../axios/axios";
 
 function Register() {
-  const [displayName, setDisplayName] = useState("");
+  const [displayname, setDisplayname] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [month, setMonth] = useState("");
+  const [day, setDay] = useState("");
+  const [year, setYear] = useState("");
+
+  if (day < 1) setDay(1);
+
+  if (month > 12) setMonth(12);
+  if (month < 1) setMonth(1);
+
+  if (year < 1950) setYear(1950);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,10 +42,13 @@ function Register() {
     try {
       // eslint-disable-next-line
       const { data, status } = await axios.post("/auth/register", {
-        displayName,
+        displayname,
         username,
         email,
         password,
+        month,
+        day,
+        year,
       });
 
       dispatch(registerSuccess());
@@ -51,8 +64,8 @@ function Register() {
         <form className="space-x-4 m-5">
           <input
             type="text"
-            value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
+            value={displayname}
+            onChange={(e) => setDisplayname(e.target.value)}
             className="bg-gray-200 pl-2 rounded-sm border-2 border-gray-300"
             placeholder="Displayname"
           />
@@ -76,6 +89,24 @@ function Register() {
             onChange={(e) => setPassword(e.target.value)}
             className="bg-gray-200 pl-2 rounded-sm border-2 border-gray-300"
             placeholder="Password"
+          />
+          <input
+            type="number"
+            value={month}
+            onChange={(e) => setMonth(e.target.value)}
+            className="bg-gray-200 pl-2 rounded-sm border-2 border-gray-300 w-20"
+          />
+          <input
+            type="number"
+            value={day}
+            onChange={(e) => setDay(e.target.value)}
+            className="bg-gray-200 pl-2 rounded-sm border-2 border-gray-300 w-20"
+          />
+          <input
+            type="number"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            className="bg-gray-200 pl-2 rounded-sm border-2 border-gray-300 w-20"
           />
           <button
             type="submit"

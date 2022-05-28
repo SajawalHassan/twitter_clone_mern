@@ -8,7 +8,6 @@ require("dotenv").config();
 const { registerValidation, loginValidation } = require("../utils/validation");
 const generateAccessToken = require("../utils/generateAccessToken");
 const RefreshToken = require("../models/RefreshToken");
-const authenticateToken = require("../middlewares/authenticateToken");
 
 router.post("/register", async (req, res) => {
   try {
@@ -33,10 +32,13 @@ router.post("/register", async (req, res) => {
 
     // Getting info for new user
     const newUser = new User({
-      displayName: req.body.displayName,
+      displayname: req.body.displayname,
       username: req.body.username,
       email: req.body.email,
       password: hashedPassword,
+      month: req.body.month,
+      day: req.body.day,
+      year: req.body.year,
     });
 
     // Saving user into db
@@ -45,6 +47,7 @@ router.post("/register", async (req, res) => {
     res.json(newUser);
   } catch (error) {
     res.sendStatus(500);
+    console.log(error);
   }
 });
 
@@ -72,6 +75,10 @@ router.post("/login", async (req, res) => {
       followers: user.followers,
       following: user.following,
       date: user.date,
+      month: user.month,
+      day: user.day,
+      year: user.year,
+      profilePic: user.profilePic,
     };
 
     // Generating access token
@@ -102,6 +109,10 @@ router.post("/login", async (req, res) => {
       followers: user.followers,
       following: user.following,
       date: user.date,
+      month: user.month,
+      day: user.day,
+      year: user.year,
+      profilePic: user.profilePic,
       accessToken: accessToken,
       refreshToken: refreshToken,
     });
@@ -136,7 +147,11 @@ router.post("/refresh/token", (req, res) => {
         likedTweets: user.likedTweets,
         followers: user.followers,
         following: user.following,
+        month: user.month,
+        day: user.day,
+        year: user.year,
         date: user.date,
+        profilePic: user.profilePic,
       };
 
       // Generating access token

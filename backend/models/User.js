@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
-  displayName: {
+  displayname: {
     type: String,
     required: true,
     min: 3,
@@ -25,6 +25,10 @@ const userSchema = mongoose.Schema({
     min: 8,
     max: 1024,
   },
+  profilePic: {
+    type: String,
+    default: "",
+  },
   bookmarkedTweets: {
     type: Array,
     default: [],
@@ -40,6 +44,18 @@ const userSchema = mongoose.Schema({
   following: {
     type: Array,
     default: [],
+  },
+  month: {
+    type: Number,
+    required: true,
+  },
+  day: {
+    type: Number,
+    required: true,
+  },
+  year: {
+    type: Number,
+    required: true,
   },
   date: {
     type: Date,
