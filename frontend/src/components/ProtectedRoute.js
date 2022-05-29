@@ -12,7 +12,7 @@ function PrivateRoute() {
     sessionStorage.getItem("accessToken") && dispatch(loginSuccess());
   }, [dispatch]);
 
-  return isAuth ? <Outlet /> : <Navigate to="/login" />;
+  return isAuth ? <Outlet /> : <Navigate to="/register" />;
 }
 
 export default PrivateRoute;

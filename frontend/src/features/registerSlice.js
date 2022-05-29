@@ -17,14 +17,18 @@ const registerSlice = createSlice({
       state.error = "";
     },
     registerFail: (state, { payload }) => {
-      state.isLoading = true;
+      state.isLoading = false;
       state.error = payload;
+    },
+    clearError: (state) => {
+      state.error = "";
     },
   },
 });
 
 const { actions, reducer } = registerSlice;
 
-export const { registerFail, registerPending, registerSuccess } = actions;
+export const { registerFail, registerPending, registerSuccess, clearError } =
+  actions;
 
 export default reducer;

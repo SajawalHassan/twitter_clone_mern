@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .login-btn {
+    @apply flex items-center justify-center w-full h-9 rounded-full ring-1 ring-gray-300 cursor-pointer hover:bg-gray-200 transition-all duration-300;
+  }
+  .flex-items {
+    @apply flex items-center;
+  }
+  .flex-column {
+    @apply flex flex-col;
+  }
+  .grid-content-center {
+    @apply grid place-content-center;
+  }
+}

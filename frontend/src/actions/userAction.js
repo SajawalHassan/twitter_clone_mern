@@ -16,7 +16,6 @@ export const getUserProfile = () => async (dispatch) => {
       },
     });
 
-    console.log({ data, status });
     dispatch(getUserSuccess(data));
   } catch (error) {
     dispatch(getUserFail(error.response.data));
