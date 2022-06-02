@@ -20,15 +20,11 @@ const registerSlice = createSlice({
       state.isLoading = false;
       state.error = payload;
     },
-    clearError: (state) => {
-      state.error = "";
-    },
   },
 });
 
 const { actions, reducer } = registerSlice;
 
-export const { registerFail, registerPending, registerSuccess, clearError } =
-  actions;
+export const { registerFail, registerPending, registerSuccess } = actions;
 
 export default reducer;
