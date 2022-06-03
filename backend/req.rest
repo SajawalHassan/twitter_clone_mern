@@ -42,3 +42,21 @@ Content-Type: application/json
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjkxOWI1NzEyZTRkN2IzNmZjMjQ2NDkiLCJkaXNwbGF5TmFtZSI6ImJvYiIsInVzZXJuYW1lIjoiYm9iIiwiZW1haWwiOiJib2JAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkUUlCbWczdElCVHo2ampibEp0a0pFT2VQYXJ0ZW9vdzE4aW9hdkRTSnZFNnhFUmczSzUzSVMiLCJib29rbWFya2VkVHdlZXRzIjpbXSwibGlrZWRUd2VldHMiOltdLCJmb2xsb3dlcnMiOltdLCJmb2xsb3dpbmciOltdLCJkYXRlIjoiMjAyMi0wNS0yOFQwMzoyNjoyMC4xMzhaIiwiX192IjowLCJpYXQiOjE2NTM3MDk2NjB9.A_84biZs5qmVIuKVS74Icu24zOoX_STtbIcbTTEYGco"
 }
+
+###
+
+POST http://localhost:5000/users/send_email
+Content-Type: application/json
+
+{
+    "email": "scientificnisnja1f12@gmail.com"
+}
+
+###
+
+GET http://localhost:5000/auth/register_err
+Content-Type: application/json
+
+{
+    "displayname": "Sajawal Hassan"
+}

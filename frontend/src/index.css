@@ -4,7 +4,7 @@
 
 @layer components {
   .auth-btn {
-    @apply flex items-center justify-center w-full h-9 rounded-full ring-1 ring-gray-300 space-x-2 hover:bg-gray-200 cursor-pointer transition-all duration-300;
+    @apply flex items-center justify-center w-full h-9 rounded-full ring-1 ring-gray-300 space-x-2 hover:bg-gray-200 cursor-pointer transition-all duration-300 font-bold;
   }
   .flex-items {
     @apply flex items-center;
@@ -14,5 +14,8 @@
   }
   .or-seperator {
     @apply w-[50%] ring-1 ring-gray-300;
+  }
+  .transition-color {
+    @apply transition-colors duration-300;
   }
 }

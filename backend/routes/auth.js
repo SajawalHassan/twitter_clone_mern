@@ -51,6 +51,29 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.post("/register_err", async (req, res) => {
+  try {
+    // Validating info
+    const { error } = registerValidation(req.body);
+    if (error) return res.status(400).json(error.details[0].message);
+
+    // username validation
+    const usernameExists = await User.findOne({ username: req.body.username });
+    if (usernameExists) return res.status(400).json("Username already exists");
+    if (req.body.username.includes(" ")) {
+      return res.status(400).json("username cannot have spaces");
+    }
+
+    // Making sure the email dosen't already exist
+    const emailExists = await User.findOne({ email: req.body.email });
+    if (emailExists) return res.status(400).json("Email already exists");
+
+    res.json("No errors!");
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
 router.post("/login", async (req, res) => {
   try {
     // Validating user

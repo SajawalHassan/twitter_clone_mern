@@ -3,10 +3,13 @@ const router = require("express").Router();
 const User = require("../models/User");
 const authenticateToken = require("../middlewares/authenticateToken");
 const bcrypt = require("bcrypt");
-
-const { userEditValidation } = require("../utils/validation");
 const Post = require("../models/Post");
 const List = require("../models/List");
+const nodemailer = require("nodemailer");
+const path = require("path");
+const hbs = require("nodemailer-express-handlebars");
+
+const { userEditValidation } = require("../utils/validation");
 
 router.get("/me", authenticateToken, async (req, res) => {
   try {
@@ -92,6 +95,62 @@ router.put("/follow/:id", authenticateToken, async (req, res) => {
     await userFollowing.updateOne({ $push: { followers: req.user._id } });
 
     res.json("User has been followed");
+  } catch (error) {
+    res.sendStatus(500);
+    console.log(error);
+  }
+});
+
+router.post("/send_email", async (req, res) => {
+  try {
+    const email = req.body.email;
+
+    // Generating code
+    let code = "";
+    const numbers = "0123456789";
+    for (let i = 0; i < 5; i++) {
+      code += numbers.charAt(Math.floor(Math.random() * numbers.length));
+    }
+
+    // point to the template folder
+    const handlebarOptions = {
+      viewEngine: {
+        partialsDir: path.resolve("./views/"),
+        defaultLayout: false,
+      },
+      viewPath: path.resolve("./views/"),
+    };
+
+    // logging into the account that will send emails
+    const mailTransporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "twitterclonebot@gmail.com",
+        pass: process.env.EMAIL_SENDER_PASS,
+      },
+    });
+
+    // use a template file with nodemailer
+    mailTransporter.use("compile", hbs(handlebarOptions));
+
+    // email details
+    let details = {
+      from: "scientificninja1f12@gmail.com",
+      to: email,
+      subject: `${code} is your twitter clone verification code`,
+      template: "email",
+      context: {
+        code,
+      },
+    };
+
+    mailTransporter.sendMail(details, (err) => {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json({ code });
+      }
+    });
   } catch (error) {
     res.sendStatus(500);
     console.log(error);

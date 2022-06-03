@@ -8,7 +8,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import axios from "../api/axios";
 
 import { featureNotAdded } from "../components/utilFunctions.comp";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   FormControl,
   IconButton,
@@ -18,10 +18,13 @@ import {
   Slider,
 } from "@mui/material";
 import {
+  registerErrorClear,
   registerFail,
   registerPending,
-  registerSuccess,
 } from "../features/register.slice";
+import { useNavigate } from "react-router-dom";
+import { setAccessToVerificationPage } from "../features/verification.slice";
+import Loader from "../components/Loader.comp";
 
 function Register() {
   const [displayname, setDisplayname] = useState("");
@@ -34,15 +37,22 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { error, isLoading } = useSelector((state) => state.register);
+
+  // Removing error after 3s
+  if (error !== "") {
+    setTimeout(() => dispatch(registerErrorClear()), 3000);
+  }
 
   const handleOnClick = async (e) => {
     e.preventDefault();
 
     dispatch(registerPending());
     try {
-      // eslint-disable-next-line
-      const { data, status } = await axios.post("/auth/register", {
-        displayname,
+      await axios.post("/auth/register_err", {
+        displayname: displayname,
         username,
         email,
         password,
@@ -51,10 +61,26 @@ function Register() {
         year,
       });
 
-      dispatch(registerSuccess());
+      const { data } = await axios.post("/users/send_email", {
+        email,
+      });
+
+      dispatch(
+        setAccessToVerificationPage({
+          access: true,
+          code: data.code,
+          displayname,
+          username,
+          email,
+          password,
+          month,
+          day,
+          year,
+        })
+      );
+      navigate("/verification");
     } catch (error) {
       dispatch(registerFail(error.response.data));
-      console.log(error);
     }
   };
 
@@ -178,7 +204,7 @@ function Register() {
           className="auth-btn bg-black hover:bg-zinc-800 text-white font-bold"
           onClick={(e) => handleOnClick(e)}
         >
-          Register
+          {isLoading ? <Loader forPage={false} /> : <h1>Register</h1>}
         </button>
       </form>
       <div className="w-[70%] mx-9 mt-[5rem]">
@@ -187,6 +213,11 @@ function Register() {
           Sign in
         </button>
       </div>
+      {error && (
+        <h1 className="absolute bottom-0 p-2 w-full text-white font-bold bg-blue-500 text-center">
+          {error}!
+        </h1>
+      )}
     </div>
   );
 }
