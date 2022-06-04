@@ -8,8 +8,8 @@ function Loader({ forPage }) {
       }
     >
       <div
-        style={{ borderTopColor: "transparent" }}
-        className="w-6 h-6 border-2 border-blue-600 animate-spin rounded-full"
+        style={{ borderTopColor: "blue" }}
+        className="w-6 h-6 border-2 border-blue-300 animate-spin rounded-full"
       ></div>
     </div>
   );

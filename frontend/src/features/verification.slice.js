@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoading: false,
-  accessToVerificationPage: false,
+  isOpen: false,
   code: "",
   displayname: "",
   username: "",
@@ -21,9 +21,9 @@ const verificationSlice = createSlice({
     setVerificationPending: (state, { payload }) => {
       state.isLoading = payload;
     },
-    setAccessToVerificationPage: (state, { payload }) => {
+    setVerificationModalState: (state, { payload }) => {
       state.isLoading = false;
-      state.accessToVerificationPage = payload.access;
+      state.isOpen = payload.isOpen;
       state.code = payload.code;
       state.email = payload.email;
       state.displayname = payload.displayname;
@@ -47,7 +47,7 @@ const verificationSlice = createSlice({
 const { actions, reducer } = verificationSlice;
 
 export const {
-  setAccessToVerificationPage,
+  setVerificationModalState,
   verificationFail,
   setVerificationPending,
   verificationErrorClear,

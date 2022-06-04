@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setAccessToVerificationPage,
+  setVerificationModalState,
   verificationErrorClear,
   verificationFail,
   setVerificationPending,
@@ -19,11 +19,11 @@ import Loader from "../components/Loader.comp";
 function Verification() {
   const [inputCode, setInputCode] = useState("");
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
-    accessToVerificationPage,
+    isOpen,
     isLoading,
     error,
     code,
@@ -38,7 +38,8 @@ function Verification() {
 
   useEffect(() => {
     if (isLoading) dispatch(setVerificationPending(false));
-  });
+    // eslint-disable-next-line
+  }, []);
 
   if (error !== "") {
     setTimeout(() => dispatch(verificationErrorClear()), 3000);
@@ -54,7 +55,17 @@ function Verification() {
       });
 
       dispatch(
-        setAccessToVerificationPage({ access: true, code: data.code, email })
+        setVerificationModalState({
+          isOpen: true,
+          code: data.code,
+          displayname,
+          username,
+          email,
+          password,
+          month,
+          day,
+          year,
+        })
       );
     } catch (error) {
       dispatch(verificationFail(error.response.data));
@@ -80,15 +91,20 @@ function Verification() {
     });
 
     dispatch(registerSuccess());
+    dispatch(
+      setVerificationModalState({
+        isOpen: false,
+      })
+    );
     navigate("/");
   };
 
-  useEffect(() => {
-    !accessToVerificationPage && navigate("/register");
-  }, [accessToVerificationPage, navigate]);
-
   return (
-    <div>
+    <div
+      className={
+        isOpen ? `w-screen h-screen absolute top-0 bg-white` : `hidden`
+      }
+    >
       <div className="flex-items w-full p-3">
         <Link
           to="/register"
@@ -119,7 +135,11 @@ function Verification() {
             className="auth-btn absolute bottom-4 w-[90%]"
             onClick={(e) => sendEmail(e)}
           >
-            Didn't recieve your code?
+            {isLoading ? (
+              <Loader forPage={false} />
+            ) : (
+              <h1>Didn't recieve your code?</h1>
+            )}
           </button>
         ) : (
           <button
