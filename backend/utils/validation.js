@@ -8,7 +8,7 @@ module.exports.registerValidation = (data) => {
     password: Joi.string().required().min(8).max(1024),
     month: Joi.number().required(),
     day: Joi.number().required(),
-    year: Joi.number().required(),
+    year: Joi.number().min(1902).max(2022).required(),
   });
 
   return schema.validate(data);
@@ -31,7 +31,7 @@ module.exports.userEditValidation = (data) => {
     password: Joi.string().min(8).max(1024),
     month: Joi.number(),
     day: Joi.number(),
-    year: Joi.number(),
+    year: Joi.number().min(1902).max(2022),
   });
 
   return schema.validate(data);

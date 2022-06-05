@@ -45,7 +45,7 @@ function Auth() {
               Happening now
             </h1>
           </div>
-          <div className="mt-5 mx-9 max-w-[60%] flex flex-col">
+          <div className="mt-5 mx-9 lg:max-w-[60%] max-w-[70%] flex flex-col">
             <h3 className="font-bold text-3xl mb-4">Join Twitter today.</h3>
             <button
               type="button"

@@ -14,7 +14,9 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
+  MenuItem,
   OutlinedInput,
+  Select,
   Slider,
 } from "@mui/material";
 import {
@@ -112,98 +114,142 @@ function Register() {
         <form className="max-w-[80%] mx-auto mt-5 md:h-max h-[80vh] grid place-content-center">
           <h1 className="text-4xl font-extrabold mb-10">Create your account</h1>
           {!verificationIsOpen && (
-            <div className="flex flex-col space-y-2">
-              <TextField
-                id="outlined-basic-displayname"
-                value={displayname}
-                onChange={(e) => setDisplayname(e.target.value)}
-                label="Displayname"
-                variant="outlined"
-              />
-              <TextField
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                id="outlined-basic-username"
-                label="Username"
-                variant="outlined"
-              />
-              <TextField
-                id="outlined-basic-email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                label="Email"
-                variant="outlined"
-              />
-              <FormControl variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">
-                  Password
-                </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={() => setShowPassword(!showPassword)}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Password"
+            <div>
+              <div className="flex flex-col space-y-2">
+                <TextField
+                  id="outlined-basic-displayname"
+                  value={displayname}
+                  onChange={(e) => setDisplayname(e.target.value)}
+                  label="Displayname"
+                  variant="outlined"
                 />
-              </FormControl>
+                <TextField
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  id="outlined-basic-username"
+                  label="Username"
+                  variant="outlined"
+                />
+                <TextField
+                  id="outlined-basic-email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  label="Email"
+                  variant="outlined"
+                />
+                <FormControl variant="outlined">
+                  <InputLabel htmlFor="outlined-adornment-password">
+                    Password
+                  </InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password"
+                  />
+                </FormControl>
+              </div>
+              <div className="mt-7">
+                <h1 className="font-bold text-xl mb-1">Date of birth</h1>
+                <p className="text-sm text-gray-600 mb-5">
+                  This will not be shown publicly. Confirm your own age, even if
+                  this account is for a business, a pet, or something else.
+                </p>
+                <div className="grid grid-cols-3 space-x-4">
+                  <div>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Month
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={month}
+                        label="Age"
+                        onChange={(e) => setMonth(e.target.value)}
+                      >
+                        <MenuItem value={1}>1</MenuItem>
+                        <MenuItem value={2}>2</MenuItem>
+                        <MenuItem value={3}>3</MenuItem>
+                        <MenuItem value={4}>4</MenuItem>
+                        <MenuItem value={5}>5</MenuItem>
+                        <MenuItem value={6}>6</MenuItem>
+                        <MenuItem value={7}>7</MenuItem>
+                        <MenuItem value={8}>8</MenuItem>
+                        <MenuItem value={9}>9</MenuItem>
+                        <MenuItem value={10}>10</MenuItem>
+                        <MenuItem value={11}>11</MenuItem>
+                        <MenuItem value={12}>12</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
+                  <div>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">Day</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={day}
+                        label="Age"
+                        onChange={(e) => setDay(e.target.value)}
+                      >
+                        <MenuItem value={1}>1</MenuItem>
+                        <MenuItem value={2}>2</MenuItem>
+                        <MenuItem value={3}>3</MenuItem>
+                        <MenuItem value={4}>4</MenuItem>
+                        <MenuItem value={5}>5</MenuItem>
+                        <MenuItem value={6}>6</MenuItem>
+                        <MenuItem value={7}>7</MenuItem>
+                        <MenuItem value={8}>8</MenuItem>
+                        <MenuItem value={9}>9</MenuItem>
+                        <MenuItem value={10}>10</MenuItem>
+                        <MenuItem value={11}>11</MenuItem>
+                        <MenuItem value={12}>12</MenuItem>
+                        <MenuItem value={13}>13</MenuItem>
+                        <MenuItem value={14}>14</MenuItem>
+                        <MenuItem value={15}>15</MenuItem>
+                        <MenuItem value={16}>16</MenuItem>
+                        <MenuItem value={17}>17</MenuItem>
+                        <MenuItem value={18}>18</MenuItem>
+                        <MenuItem value={19}>19</MenuItem>
+                        <MenuItem value={20}>20</MenuItem>
+                        <MenuItem value={21}>21</MenuItem>
+                        <MenuItem value={22}>22</MenuItem>
+                        <MenuItem value={23}>23</MenuItem>
+                        <MenuItem value={24}>24</MenuItem>
+                        <MenuItem value={25}>25</MenuItem>
+                        <MenuItem value={26}>26</MenuItem>
+                        <MenuItem value={27}>27</MenuItem>
+                        <MenuItem value={28}>28</MenuItem>
+                        <MenuItem value={29}>29</MenuItem>
+                        <MenuItem value={30}>30</MenuItem>
+                        <MenuItem value={31}>31</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
+                  <TextField
+                    id="outlined-basic-year"
+                    value={year}
+                    onChange={(e) => setYear(e.target.value)}
+                    label="Year"
+                    variant="outlined"
+                  />
+                </div>
+              </div>
             </div>
           )}
-          <div className="mt-7">
-            <h1 className="font-bold text-xl mb-1">Date of birth</h1>
-            <p className="text-sm text-gray-600 mb-5">
-              This will not be shown publicly. Confirm your own age, even if
-              this account is for a business, a pet, or something else.
-            </p>
-            <div className="grid grid-cols-3 space-x-4">
-              <div>
-                <h1 className="font-bold text-xl">Month</h1>
-                <Slider
-                  size="small"
-                  aria-label="Small"
-                  valueLabelDisplay="auto"
-                  value={month}
-                  onChange={(e) => setMonth(e.target.value)}
-                  min={1}
-                  max={12}
-                />
-              </div>
-              <div>
-                <h1 className="font-bold text-xl">Day</h1>
-                <Slider
-                  size="small"
-                  aria-label="Small"
-                  valueLabelDisplay="auto"
-                  value={day}
-                  onChange={(e) => setDay(e.target.value)}
-                  min={1}
-                  max={31}
-                />
-              </div>
-              <div>
-                <h1 className="font-bold text-xl">Year</h1>
-                <Slider
-                  size="small"
-                  aria-label="Small"
-                  valueLabelDisplay="auto"
-                  value={year}
-                  onChange={(e) => setYear(e.target.value)}
-                  min={1950}
-                  max={2022}
-                />
-              </div>
-            </div>
-          </div>
 
           <button
             type="submit"
@@ -225,7 +271,7 @@ function Register() {
         </form>
       </div>
       {error && (
-        <h1 className="absolute bottom-0 p-2 w-full text-white font-bold bg-blue-500 text-center lg:w-max lg:px-5 lg:bottom-5 lg:inset-x-0 lg:mx-auto lg:rounded-lg lg:ring-2 lg:ring-blue-600">
+        <h1 className="absolute p-2 text-white font-bold bg-blue-500 text-center w-max px-5 bottom-5 inset-x-0 mx-auto rounded-lg ring-2 ring-blue-600">
           {error}!
         </h1>
       )}

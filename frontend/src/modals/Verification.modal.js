@@ -170,7 +170,7 @@ function Verification() {
       </div>
 
       {error && (
-        <h1 className="absolute bottom-0 p-2 w-full text-white font-bold bg-blue-500 text-center lg:w-max lg:px-5 lg:bottom-5 lg:inset-x-0 lg:mx-auto lg:rounded-lg lg:ring-2 lg:ring-blue-600">
+        <h1 className="absolute p-2 text-white font-bold bg-blue-500 text-center w-max px-5 bottom-5 inset-x-0 mx-auto rounded-lg ring-2 ring-blue-600">
           {error}!
         </h1>
       )}
