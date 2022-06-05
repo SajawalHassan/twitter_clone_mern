@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoading: false,
-  isOpen: false,
+  verificationIsOpen: false,
   code: "",
   displayname: "",
   username: "",
@@ -23,7 +23,7 @@ const verificationSlice = createSlice({
     },
     setVerificationModalState: (state, { payload }) => {
       state.isLoading = false;
-      state.isOpen = payload.isOpen;
+      state.verificationIsOpen = payload.verificationIsOpen;
       state.code = payload.code;
       state.email = payload.email;
       state.displayname = payload.displayname;

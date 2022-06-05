@@ -1,4 +1,4 @@
-import Register from "./pages/Register.page";
+import Auth from "./pages/Auth.page";
 
 import Home from "./pages/Home.page";
 
@@ -8,8 +8,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Auth />} />
       </Routes>
     </Router>
   );

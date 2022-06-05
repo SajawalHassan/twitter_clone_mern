@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import twitterLogo from "../images/twitter_logo.png";
 import axios from "../api/axios";
+import Loader from "../components/Loader.comp";
 
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
@@ -13,8 +14,10 @@ import {
   verificationFail,
   setVerificationPending,
 } from "../features/verification.slice";
-import { registerSuccess, registerFail } from "../features/register.slice";
-import Loader from "../components/Loader.comp";
+import {
+  registerSuccess,
+  setRegisterPending,
+} from "../features/register.slice";
 
 function Verification() {
   const [inputCode, setInputCode] = useState("");
@@ -23,7 +26,7 @@ function Verification() {
   const navigate = useNavigate();
 
   const {
-    isOpen,
+    verificationIsOpen,
     isLoading,
     error,
     code,
@@ -56,7 +59,7 @@ function Verification() {
 
       dispatch(
         setVerificationModalState({
-          isOpen: true,
+          verificationIsOpen: true,
           code: data.code,
           displayname,
           username,
@@ -91,32 +94,29 @@ function Verification() {
     });
 
     dispatch(registerSuccess());
-    dispatch(
-      setVerificationModalState({
-        isOpen: false,
-      })
-    );
-    navigate("/");
+    navigate("/home");
   };
 
   return (
     <div
       className={
-        isOpen
-          ? `w-screen h-screen absolute top-0 bg-white lg:bg-black lg:bg-opacity-50`
+        verificationIsOpen
+          ? `w-screen h-screen absolute top-0 bg-white md:bg-black md:bg-opacity-[0.004]`
           : `hidden`
       }
     >
-      <div className="lg:w-[70%] xl:w-[50%] 2xl:w-[40%] lg:h-[70%] lg:rounded-md lg:inset-0 lg:m-auto lg:absolute lg:bg-white md:max-w-[80vw] md:mx-auto">
-        <div className="flex-items w-full p-3">
+      <div className="md:w-[70%] md:h-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[40%] lg:h-[70%] md:rounded-lg md:inset-0 md:m-auto md:absolute md:bg-white md:max-w-[80vw] md:mx-auto">
+        <div className="flex-items w-full py-3">
           <button
-            className="p-1 rounded-full hover:bg-gray-300 transition-color md:ml-5"
+            className="p-1 rounded-full hover:bg-gray-300 transition-color ml-3"
             onClick={() => {
-              dispatch(setVerificationModalState({ isOpen: false }));
-              dispatch(registerFail(""));
+              dispatch(
+                setVerificationModalState({ verificationIsOpen: false })
+              );
+              dispatch(setRegisterPending(false));
             }}
           >
-            <CloseOutlinedIcon />
+            <ArrowBackIcon />
           </button>
 
           <img src={twitterLogo} alt="twitter_logo" className="h-6 mx-auto" />

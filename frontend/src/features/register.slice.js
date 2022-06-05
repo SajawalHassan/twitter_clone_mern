@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoading: false,
+  registerIsOpen: false,
   error: "",
 };
 
@@ -9,8 +10,8 @@ const registerSlice = createSlice({
   name: "Register",
   initialState,
   reducers: {
-    registerPending: (state) => {
-      state.isLoading = true;
+    setRegisterPending: (state, { payload }) => {
+      state.isLoading = payload;
     },
     registerSuccess: (state) => {
       state.isLoading = false;
@@ -19,6 +20,11 @@ const registerSlice = createSlice({
     registerFail: (state, { payload }) => {
       state.isLoading = false;
       state.error = payload;
+    },
+    setRegisterModalState: (state, { payload }) => {
+      state.isLoading = false;
+      state.registerIsOpen = payload;
+      state.error = "";
     },
     registerErrorClear: (state) => {
       state.error = "";
@@ -30,9 +36,10 @@ const { actions, reducer } = registerSlice;
 
 export const {
   registerFail,
-  registerPending,
+  setRegisterPending,
   registerSuccess,
   registerErrorClear,
+  setRegisterModalState,
 } = actions;
 
 export default reducer;

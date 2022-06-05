@@ -4,7 +4,7 @@
 
 @layer components {
   .auth-btn {
-    @apply flex items-center justify-center w-full h-9 rounded-full ring-1 ring-gray-300 space-x-2 hover:bg-gray-200 cursor-pointer transition-all duration-300 font-bold;
+    @apply flex items-center justify-center w-full h-10 rounded-full ring-1 ring-gray-300 space-x-2 hover:bg-gray-200 cursor-pointer transition-all duration-300 font-bold my-2;
   }
   .flex-items {
     @apply flex items-center;
