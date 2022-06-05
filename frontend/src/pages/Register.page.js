@@ -7,6 +7,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import axios from "../api/axios";
 import Loader from "../components/Loader.comp";
+import twitterLogoWhite from "../images/twitter_logo_white.png";
 
 import { featureNotAdded } from "../components/utilFunctions.comp";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,6 +49,9 @@ function Register() {
   if (error !== "") {
     setTimeout(() => dispatch(registerErrorClear()), 3000);
   }
+  if (error === "Internal Server Error") {
+    dispatch(registerFail(""));
+  }
 
   useEffect(() => {
     if (isLoading) dispatch(setVerificationPending(false));
@@ -60,7 +64,7 @@ function Register() {
     dispatch(registerPending());
     try {
       await axios.post("/auth/register_err", {
-        displayname: displayname,
+        displayname,
         username,
         email,
         password,
@@ -93,13 +97,29 @@ function Register() {
 
   return (
     <div>
-      {!isOpen && (
-        <div>
+      <div className={!isOpen ? `lg:flex-items` : `hidden lg:flex-items`}>
+        <div className="hidden lg:block w-[50%] h-screen relative">
+          <img
+            src="https://abs.twimg.com/sticky/illustrations/lohp_en_1302x955.png"
+            alt="twitter_logo_white_bg"
+            className="h-screen"
+            draggable="false"
+          />
+          <img
+            src={twitterLogoWhite}
+            alt="twitter_logo_white"
+            className="absolute inset-0 m-auto"
+            draggable="false"
+          />
+        </div>
+        <div className="sm:mx-auto md:max-w-[70%] lg:mx-6 sm:max-w-[90%]">
           <div className="m-10">
             <img src={twitterLogo} alt="twitter_logo" className="h-9" />
-            <h1 className="mt-10 font-extrabold text-5xl">Happening now</h1>
+            <h1 className="mt-10 font-extrabold text-5xl sm:text-6xl lg:text-5xl xl:text-6xl">
+              Happening now
+            </h1>
           </div>
-          <form className="mt-5 mx-9 space-y-2 w-[70%] flex flex-col">
+          <div className="mt-5 mx-9 space-y-2 max-w-[70%] flex flex-col">
             <h3 className="font-bold text-3xl mb-4">Join Twitter today.</h3>
             <button
               type="button"
@@ -122,112 +142,134 @@ function Register() {
               <div className="px-2">or</div>
               <div className="or-seperator"></div>
             </div>
-            <TextField
-              id="outlined-basic-displayname"
-              value={displayname}
-              onChange={(e) => setDisplayname(e.target.value)}
-              label="Displayname"
-              variant="outlined"
-            />
-            <TextField
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              id="outlined-basic-username"
-              label="Username"
-              variant="outlined"
-            />
-            <TextField
-              id="outlined-basic-email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              label="Email"
-              variant="outlined"
-            />
-            <FormControl variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">
-                Password
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => setShowPassword(!showPassword)}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-              />
-            </FormControl>
-            <div className="grid grid-cols-3 space-x-4">
-              <div>
-                <h1 className="font-bold text-xl">Month</h1>
-                <Slider
-                  size="small"
-                  aria-label="Small"
-                  valueLabelDisplay="auto"
-                  value={month}
-                  onChange={(e) => setMonth(e.target.value)}
-                  min={1}
-                  max={12}
-                />
+            <div>
+              <form>
+                {!isOpen && (
+                  <div className="flex flex-col space-y-2">
+                    <TextField
+                      id="outlined-basic-displayname"
+                      value={displayname}
+                      onChange={(e) => setDisplayname(e.target.value)}
+                      label="Displayname"
+                      variant="outlined"
+                    />
+                    <TextField
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      id="outlined-basic-username"
+                      label="Username"
+                      variant="outlined"
+                    />
+                    <TextField
+                      id="outlined-basic-email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      label="Email"
+                      variant="outlined"
+                    />
+                    <FormControl variant="outlined">
+                      <InputLabel htmlFor="outlined-adornment-password">
+                        Password
+                      </InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-password"
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={() => setShowPassword(!showPassword)}
+                              edge="end"
+                            >
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        label="Password"
+                      />
+                    </FormControl>
+                  </div>
+                )}
+                <div className="grid grid-cols-3 space-x-4">
+                  <div>
+                    <h1 className="font-bold text-xl">Month</h1>
+                    <Slider
+                      size="small"
+                      aria-label="Small"
+                      valueLabelDisplay="auto"
+                      value={month}
+                      onChange={(e) => setMonth(e.target.value)}
+                      min={1}
+                      max={12}
+                    />
+                  </div>
+                  <div>
+                    <h1 className="font-bold text-xl">Day</h1>
+                    <Slider
+                      size="small"
+                      aria-label="Small"
+                      valueLabelDisplay="auto"
+                      value={day}
+                      onChange={(e) => setDay(e.target.value)}
+                      min={1}
+                      max={31}
+                    />
+                  </div>
+                  <div>
+                    <h1 className="font-bold text-xl">Year</h1>
+                    <Slider
+                      size="small"
+                      aria-label="Small"
+                      valueLabelDisplay="auto"
+                      value={year}
+                      onChange={(e) => setYear(e.target.value)}
+                      min={1950}
+                      max={2022}
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className={
+                    !isLoading
+                      ? `auth-btn bg-black hover:bg-zinc-800 text-white font-bold`
+                      : `auth-btn bg-black hover:bg-zinc-800 text-white font-bold cursor-not-allowed`
+                  }
+                  onClick={(e) => {
+                    if (!isLoading) {
+                      handleOnClick(e);
+                    } else {
+                      e.preventDefault();
+                    }
+                  }}
+                >
+                  {isLoading ? <Loader forPage={false} /> : <h1>Register</h1>}
+                </button>
+              </form>
+              <div className="mt-10">
+                <h1 className="font-bold text-2xl">Already have an account?</h1>
+                <button className="auth-btn text-blue-500 mt-3" to="/login">
+                  Sign in
+                </button>
               </div>
-              <div>
-                <h1 className="font-bold text-xl">Day</h1>
-                <Slider
-                  size="small"
-                  aria-label="Small"
-                  valueLabelDisplay="auto"
-                  value={day}
-                  onChange={(e) => setDay(e.target.value)}
-                  min={1}
-                  max={31}
-                />
-              </div>
-              <div>
-                <h1 className="font-bold text-xl">Year</h1>
-                <Slider
-                  size="small"
-                  aria-label="Small"
-                  valueLabelDisplay="auto"
-                  value={year}
-                  onChange={(e) => setYear(e.target.value)}
-                  min={1950}
-                  max={2022}
-                />
-              </div>
+              {error && (
+                <h1 className="absolute bottom-0 p-2 w-full text-white font-bold bg-blue-500 text-center lg:w-max lg:px-5 lg:bottom-5 lg:inset-x-0 lg:mx-auto lg:rounded-lg lg:ring-2 lg:ring-blue-600">
+                  {error}!
+                </h1>
+              )}
+
+              {isOpen && <Verification />}
             </div>
-
-            <button
-              type="submit"
-              className="auth-btn bg-black hover:bg-zinc-800 text-white font-bold"
-              onClick={(e) => handleOnClick(e)}
-            >
-              {isLoading ? <Loader forPage={false} /> : <h1>Register</h1>}
-            </button>
-          </form>
-          <div className="w-[70%] mx-9 mt-[5rem]">
-            <h1 className="font-bold text-2xl">Already have an account?</h1>
-            <button className="auth-btn text-blue-500 mt-3" to="/login">
-              Sign in
-            </button>
           </div>
-          {error && (
-            <h1 className="absolute bottom-0 p-2 w-full text-white font-bold bg-blue-500 text-center">
-              {error}!
-            </h1>
-          )}
         </div>
-      )}
-
-      {isOpen && <Verification />}
+      </div>
     </div>
   );
 }
