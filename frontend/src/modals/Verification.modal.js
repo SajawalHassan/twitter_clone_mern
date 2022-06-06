@@ -5,7 +5,6 @@ import twitterLogo from "../images/twitter_logo.png";
 import axios from "../api/axios";
 import Loader from "../components/Loader.comp";
 
-import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,14 +15,16 @@ import {
 } from "../features/verification.slice";
 import {
   registerSuccess,
+  setRegisterModalState,
   setRegisterPending,
 } from "../features/register.slice";
+import { setLoginModalState } from "../features/login.slice";
+import { useHotkeys } from "react-hotkeys-hook";
 
 function Verification() {
   const [inputCode, setInputCode] = useState("");
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const {
     verificationIsOpen,
@@ -43,6 +44,8 @@ function Verification() {
     if (isLoading) dispatch(setVerificationPending(false));
     // eslint-disable-next-line
   }, []);
+
+  useHotkeys("esc", () => dispatch(setVerificationModalState(false)));
 
   if (error !== "") {
     setTimeout(() => dispatch(verificationErrorClear()), 3000);
@@ -94,19 +97,21 @@ function Verification() {
     });
 
     dispatch(registerSuccess());
-    navigate("/home");
+    dispatch(setVerificationModalState(false));
+    dispatch(setRegisterModalState(false));
+    dispatch(setLoginModalState(true));
   };
 
   return (
     <div
       className={
         verificationIsOpen
-          ? `w-screen h-screen absolute top-0 bg-white md:bg-black md:bg-opacity-[0.004]`
+          ? `w-screen h-screen absolute top-0 bg-white md:bg-black md:bg-opacity-[0.004] modal-animation`
           : `hidden`
       }
     >
-      <div className="md:w-[70%] md:h-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[40%] lg:h-[70%] md:rounded-lg md:inset-0 md:m-auto md:absolute md:bg-white md:max-w-[80vw] md:mx-auto">
-        <div className="flex-items w-full py-3">
+      <div className="md:w-[70%] md:h-max pt-[1rem] pb-[28.5rem] lg:w-[60%] xl:w-[50%] 2xl:w-[35%] md:rounded-lg md:inset-0 md:m-auto md:absolute md:bg-white md:max-w-[80vw] md:mx-auto">
+        <div className="flex-items w-full">
           <button
             className="p-1 rounded-full hover:bg-gray-300 transition-color ml-3"
             onClick={() => {
@@ -169,11 +174,7 @@ function Verification() {
         </form>
       </div>
 
-      {error && (
-        <h1 className="absolute p-2 text-white font-bold bg-blue-500 text-center w-max px-5 bottom-5 inset-x-0 mx-auto rounded-lg ring-2 ring-blue-600">
-          {error}!
-        </h1>
-      )}
+      {error && <h1 className="error err-animation">{error}!</h1>}
     </div>
   );
 }

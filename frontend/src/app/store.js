@@ -5,11 +5,13 @@ import thunk from "redux-thunk";
 
 import registerReducer from "../features/register.slice";
 import verificationReducer from "../features/verification.slice";
+import loginReducer from "../features/login.slice";
 
 // Combining reducers
 const reducers = combineReducers({
   register: registerReducer,
   verification: verificationReducer,
+  login: loginReducer,
 });
 
 const persistConfig = {

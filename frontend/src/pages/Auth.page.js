@@ -4,32 +4,29 @@ import googleLogo from "../images/google_logo.png";
 import appleLogo from "../images/apple_logo.png";
 import twitterLogoWhite from "../images/twitter_logo_white.png";
 import Register from "../modals/Register.modal";
+import Login from "../modals/Login.modal";
 
 import { featureNotAdded } from "../components/utilFunctions.comp";
 import { useDispatch, useSelector } from "react-redux";
 import { setRegisterModalState } from "../features/register.slice";
+import { setLoginModalState } from "../features/login.slice";
 
 function Auth() {
   const dispatch = useDispatch();
 
-  const { verificationIsOpen } = useSelector((state) => state.verification);
   const { registerIsOpen } = useSelector((state) => state.register);
+  const { loginIsOpen } = useSelector((state) => state.login);
 
   return (
     <div>
-      <div
-        className={
-          !verificationIsOpen
-            ? `md:flex-items w-screen`
-            : `hidden md:flex-items`
-        }
-      >
+      <div className="md:flex-items w-screen">
         <div className="hidden md:block w-[50%] h-screen relative">
           <img
             src="https://abs.twimg.com/sticky/illustrations/lohp_en_1302x955.png"
             alt="twitter_logo_white_bg"
             className="h-screen"
             draggable="false"
+            loading="lazy"
           />
           <img
             src={twitterLogoWhite}
@@ -49,7 +46,7 @@ function Auth() {
             <h3 className="font-bold text-3xl mb-4">Join Twitter today.</h3>
             <button
               type="button"
-              className="auth-btn"
+              className="auth-btn mb-3"
               onClick={() => featureNotAdded()}
             >
               <img src={googleLogo} alt="google_logo" className="h-6" />
@@ -63,7 +60,7 @@ function Auth() {
               <img src={appleLogo} alt="google_logo" className="h-6" />
               <h1 className="font-bold">Sign in with Apple</h1>
             </button>
-            <div className="flex-items">
+            <div className="flex-items my-3">
               <div className="or-seperator"></div>
               <div className="px-2">or</div>
               <div className="or-seperator"></div>
@@ -76,7 +73,10 @@ function Auth() {
             </button>
             <div className="mt-10">
               <h1 className="font-bold text-2xl">Already have an account?</h1>
-              <button className="auth-btn text-blue-500 mt-3" to="/login">
+              <button
+                className="auth-btn text-blue-500 mt-3"
+                onClick={() => dispatch(setLoginModalState(true))}
+              >
                 Sign in
               </button>
             </div>
@@ -84,6 +84,7 @@ function Auth() {
         </div>
       </div>
       {registerIsOpen && <Register />}
+      {loginIsOpen && <Login />}
     </div>
   );
 }

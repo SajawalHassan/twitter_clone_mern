@@ -17,7 +17,6 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
-  Slider,
 } from "@mui/material";
 import {
   registerErrorClear,
@@ -26,17 +25,19 @@ import {
   setRegisterPending,
 } from "../features/register.slice";
 import { setVerificationModalState } from "../features/verification.slice";
+import { useHotkeys } from "react-hotkeys-hook";
 
 function Register() {
   const [displayname, setDisplayname] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [month, setMonth] = useState(1);
-  const [day, setDay] = useState(1);
-  const [year, setYear] = useState(1);
+  const [month, setMonth] = useState();
+  const [day, setDay] = useState();
+  const [year, setYear] = useState();
   const [showPassword, setShowPassword] = useState(false);
 
+  useHotkeys("esc", () => dispatch(setRegisterModalState(false)));
   const dispatch = useDispatch();
 
   const { error, isLoading, registerIsOpen } = useSelector(
@@ -85,6 +86,7 @@ function Register() {
           year,
         })
       );
+      dispatch(setRegisterModalState(false));
     } catch (error) {
       dispatch(registerFail(error.response.data));
     }
@@ -94,12 +96,12 @@ function Register() {
     <div
       className={
         registerIsOpen
-          ? `w-screen h-screen absolute top-0 bg-white md:bg-black md:bg-opacity-50`
+          ? `w-screen h-screen absolute top-0 bg-white md:bg-black md:bg-opacity-50 modal-animation`
           : `hidden`
       }
     >
-      <div className="md:w-[70%] md:h-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[35%] lg:h-[70%] md:rounded-lg md:inset-0 md:m-auto md:absolute md:bg-white md:max-w-[80vw] md:mx-auto">
-        <div className="flex-items w-full py-3">
+      <div className="md:w-[70%] md:h-max pb-[2rem] lg:w-[60%] xl:w-[50%] 2xl:w-[35%] md:rounded-lg md:inset-0 md:m-auto md:absolute md:bg-white md:max-w-[80vw] md:mx-auto">
+        <div className="flex-items w-full py-5">
           <button
             className="p-1 rounded-full hover:bg-gray-300 transition-color ml-3"
             onClick={() => {
@@ -111,7 +113,7 @@ function Register() {
 
           <img src={twitterLogo} alt="twitter_logo" className="h-6 mx-auto" />
         </div>
-        <form className="max-w-[80%] mx-auto mt-5 md:h-max h-[80vh] grid place-content-center">
+        <form className="max-w-[80%] mx-auto md:h-max h-[80vh] grid place-content-center">
           <h1 className="text-4xl font-extrabold mb-10">Create your account</h1>
           {!verificationIsOpen && (
             <div>
@@ -180,18 +182,18 @@ function Register() {
                         label="Age"
                         onChange={(e) => setMonth(e.target.value)}
                       >
-                        <MenuItem value={1}>1</MenuItem>
-                        <MenuItem value={2}>2</MenuItem>
-                        <MenuItem value={3}>3</MenuItem>
-                        <MenuItem value={4}>4</MenuItem>
-                        <MenuItem value={5}>5</MenuItem>
-                        <MenuItem value={6}>6</MenuItem>
-                        <MenuItem value={7}>7</MenuItem>
-                        <MenuItem value={8}>8</MenuItem>
-                        <MenuItem value={9}>9</MenuItem>
-                        <MenuItem value={10}>10</MenuItem>
-                        <MenuItem value={11}>11</MenuItem>
-                        <MenuItem value={12}>12</MenuItem>
+                        <MenuItem value={1}>January</MenuItem>
+                        <MenuItem value={2}>Febuary</MenuItem>
+                        <MenuItem value={3}>March</MenuItem>
+                        <MenuItem value={4}>April</MenuItem>
+                        <MenuItem value={5}>May</MenuItem>
+                        <MenuItem value={6}>June</MenuItem>
+                        <MenuItem value={7}>July</MenuItem>
+                        <MenuItem value={8}>August</MenuItem>
+                        <MenuItem value={9}>Sepember</MenuItem>
+                        <MenuItem value={10}>October</MenuItem>
+                        <MenuItem value={11}>November</MenuItem>
+                        <MenuItem value={12}>December</MenuItem>
                       </Select>
                     </FormControl>
                   </div>
@@ -270,11 +272,7 @@ function Register() {
           </button>
         </form>
       </div>
-      {error && (
-        <h1 className="absolute p-2 text-white font-bold bg-blue-500 text-center w-max px-5 bottom-5 inset-x-0 mx-auto rounded-lg ring-2 ring-blue-600">
-          {error}!
-        </h1>
-      )}
+      {error && <h1 className="error err-animation">{error}!</h1>}
 
       {verificationIsOpen && <Verification />}
     </div>

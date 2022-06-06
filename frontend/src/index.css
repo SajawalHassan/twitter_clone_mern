@@ -4,7 +4,10 @@
 
 @layer components {
   .auth-btn {
-    @apply flex items-center justify-center w-full h-10 rounded-full ring-1 ring-gray-300 space-x-2 hover:bg-gray-200 cursor-pointer transition-all duration-300 font-bold my-2;
+    @apply flex items-center justify-center w-full h-10 rounded-full ring-1 ring-gray-300 space-x-2 hover:bg-gray-200 cursor-pointer transition-all duration-300 font-bold;
+  }
+  .error {
+    @apply absolute p-2 text-white font-bold bg-blue-500 text-center w-max px-5 bottom-5 inset-x-0 mx-auto rounded-lg ring-2 ring-blue-600;
   }
   .flex-items {
     @apply flex items-center;
@@ -17,5 +20,35 @@
   }
   .transition-color {
     @apply transition-colors duration-300;
+  }
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.err-animation {
+  animation: 200ms err-animation;
+}
+
+.modal-animation {
+  animation: 200ms modal-animation;
+}
+
+@keyframes err-animation {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: 5;
+  }
+}
+
+@keyframes modal-animation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
