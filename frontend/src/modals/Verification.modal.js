@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import twitterLogo from "../images/twitter_logo.png";
 import axios from "../api/axios";
-import Loader from "../components/Loader.comp";
+import Loader from "../components/Loader/Loader.comp";
 
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";

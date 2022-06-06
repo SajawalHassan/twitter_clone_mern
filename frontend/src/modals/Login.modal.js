@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import axios from "../api/axios";
-import Loader from "../components/Loader.comp";
+import Loader from "../components/Loader/Loader.comp";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import twitterLogo from "../images/twitter_logo.png";
 import Verification from "../modals/Verification.modal";
@@ -13,7 +13,7 @@ import appleLogo from "../images/apple_logo.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useHotkeys } from "react-hotkeys-hook";
-import { featureNotAdded } from "../components/utilFunctions.comp";
+import { featureNotAdded } from "../components/utils/utilFunctions.comp";
 import {
   FormControl,
   IconButton,
@@ -81,7 +81,7 @@ function Login() {
           : `hidden`
       }
     >
-      <div className="md:w-[70%] md:h-max pb-[3rem] lg:w-[60%] xl:w-[50%] 2xl:w-[35%] md:rounded-lg md:inset-0 md:m-auto md:absolute md:bg-white md:max-w-[80vw] md:mx-auto">
+      <div className="w-full md:w-[70%] md:h-max pb-[3rem] lg:w-[60%] xl:w-[50%] 2xl:w-[35%] md:rounded-lg md:inset-0 md:m-auto md:absolute md:bg-white md:mx-auto">
         <div className="flex-items w-full py-3">
           <button
             className="p-1 rounded-full hover:bg-gray-300 transition-color ml-3"

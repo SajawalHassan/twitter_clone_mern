@@ -6,7 +6,7 @@ import twitterLogoWhite from "../images/twitter_logo_white.png";
 import Register from "../modals/Register.modal";
 import Login from "../modals/Login.modal";
 
-import { featureNotAdded } from "../components/utilFunctions.comp";
+import { featureNotAdded } from "../components/utils/utilFunctions.comp";
 import { useDispatch, useSelector } from "react-redux";
 import { setRegisterModalState } from "../features/register.slice";
 import { setLoginModalState } from "../features/login.slice";
@@ -43,9 +43,9 @@ function Auth() {
           />
         </div>
         <div className="md:max-w-[70%] lg:mx-6 sm:max-w-[90%] grid place-content-center h-[85vh]">
-          <div className="m-10">
+          <div className="mx-10">
             <img src={twitterLogo} alt="twitter_logo" className="h-9" />
-            <h1 className="mt-10 font-extrabold text-5xl sm:text-6xl lg:text-5xl xl:text-6xl">
+            <h1 className="mt-10 font-extrabold text-5xl sm:text-6xl md:text-5xl xl:text-6xl">
               Happening now
             </h1>
           </div>

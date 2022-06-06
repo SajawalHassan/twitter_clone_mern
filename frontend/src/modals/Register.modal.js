@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import axios from "../api/axios";
-import Loader from "../components/Loader.comp";
+import Loader from "../components/Loader/Loader.comp";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import twitterLogo from "../images/twitter_logo.png";
 import Verification from "../modals/Verification.modal";
@@ -100,7 +100,7 @@ function Register() {
           : `hidden`
       }
     >
-      <div className="md:w-[70%] md:h-max pb-[2rem] lg:w-[60%] xl:w-[50%] 2xl:w-[35%] md:rounded-lg md:inset-0 md:m-auto md:absolute md:bg-white md:max-w-[80vw] md:mx-auto">
+      <div className="md:w-[70%] md:h-max pb-[2rem] lg:w-[60%] xl:w-[50%] 2xl:w-[35%] md:rounded-lg md:inset-0 md:m-auto md:absolute md:bg-white md:mx-auto">
         <div className="flex-items w-full py-5">
           <button
             className="p-1 rounded-full hover:bg-gray-300 transition-color ml-3"
