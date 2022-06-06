@@ -29,6 +29,7 @@ import {
   setloginPending,
 } from "../features/login.slice";
 import { setRegisterModalState } from "../features/register.slice";
+import { setUser } from "../features/user.slice";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -65,6 +66,7 @@ function Login() {
       localStorage.setItem("refreshToken", data.refreshToken);
 
       dispatch(loginSuccess());
+      dispatch(setUser(data));
       navigate("/home");
     } catch (error) {
       dispatch(loginFail(error.response.data));

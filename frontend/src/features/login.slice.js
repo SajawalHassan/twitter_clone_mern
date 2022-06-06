@@ -22,6 +22,7 @@ const loginSlice = createSlice({
     },
     loginSuccess: (state) => {
       state.isLoading = false;
+      state.loginIsOpen = false;
       state.isAuth = true;
       state.error = "";
     },

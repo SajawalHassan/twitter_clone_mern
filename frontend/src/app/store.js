@@ -1,23 +1,25 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
-import storageSession from "redux-persist/es/storage/session";
 import thunk from "redux-thunk";
 
 import registerReducer from "../features/register.slice";
 import verificationReducer from "../features/verification.slice";
 import loginReducer from "../features/login.slice";
+import userReducer from "../features/user.slice";
+import storage from "redux-persist/lib/storage";
 
 // Combining reducers
 const reducers = combineReducers({
   register: registerReducer,
   verification: verificationReducer,
   login: loginReducer,
+  user: userReducer,
 });
 
 const persistConfig = {
   key: "root",
-  storage: storageSession,
-  whitelist: ["verification"], // Slicers that will be persisted
+  storage,
+  whitelist: ["verification", "user", "login"], // Slicers that will be persisted
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

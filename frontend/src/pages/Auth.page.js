@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import twitterLogo from "../images/twitter_logo.png";
 import googleLogo from "../images/google_logo.png";
 import appleLogo from "../images/apple_logo.png";
@@ -10,12 +10,19 @@ import { featureNotAdded } from "../components/utilFunctions.comp";
 import { useDispatch, useSelector } from "react-redux";
 import { setRegisterModalState } from "../features/register.slice";
 import { setLoginModalState } from "../features/login.slice";
+import { useNavigate } from "react-router-dom";
 
 function Auth() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { registerIsOpen } = useSelector((state) => state.register);
-  const { loginIsOpen } = useSelector((state) => state.login);
+  const { loginIsOpen, isAuth } = useSelector((state) => state.login);
+
+  useEffect(() => {
+    isAuth && navigate("/home");
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div>

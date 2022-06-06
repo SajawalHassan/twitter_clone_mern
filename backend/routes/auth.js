@@ -90,7 +90,7 @@ router.post("/login", async (req, res) => {
 
     const userPayload = {
       _id: user._id,
-      displayName: user.displayName,
+      displayname: user.displayname,
       username: user.username,
       email: user.email,
       bookmarkedTweets: user.bookmarkedTweets,
@@ -123,7 +123,7 @@ router.post("/login", async (req, res) => {
 
     res.json({
       _id: user._id,
-      displayName: user.displayName,
+      displayname: user.displayname,
       username: user.username,
       email: user.email,
       password: user.password,
@@ -163,7 +163,7 @@ router.post("/refresh/token", (req, res) => {
 
       const userPayload = {
         _id: user._id,
-        displayName: user.displayName,
+        displayname: user.displayname,
         username: user.username,
         email: user.email,
         bookmarkedTweets: user.bookmarkedTweets,
