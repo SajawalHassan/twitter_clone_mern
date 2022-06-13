@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import CollectionsOutlinedIcon from "@mui/icons-material/CollectionsOutlined";
@@ -20,20 +21,45 @@ import {
   tweetSuccess,
 } from "../features/tweet.slice";
 import axios from "../api/axios";
+import RefreshToken from "../hooks/RefreshToken";
 
 function Tweet() {
   const [textfield, setTextfield] = useState("");
+  const [image, setImage] = useState("");
+  const [selectedFile, setSelectedFile] = useState();
+
   const { user } = useSelector((state) => state.user);
+  const { profilePic } = user;
   const { tweetModalIsOpen, error, isLoading } = useSelector(
     (state) => state.tweet
   );
-  const { profilePic } = user;
 
   const dispatch = useDispatch();
+  const imageRef = useRef();
 
   if (error !== "") {
     setTimeout(() => dispatch(tweetErrorClear()), 3000);
   }
+
+  // Clean up the selection to avoid memory leak
+  useEffect(() => {
+    if (selectedFile) {
+      const objectURL = URL.createObjectURL(selectedFile);
+      setImage(objectURL);
+      return () => URL.revokeObjectURL(objectURL);
+    }
+  }, [selectedFile]);
+
+  // Opening menu to select file
+  const showOpenFileDialog = () => {
+    imageRef.current.click();
+  };
+
+  // On each change let user have access to a selected file
+  const handleChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
 
   const handleOnClick = async () => {
     dispatch(setTweetPending(true));
@@ -42,18 +68,16 @@ function Tweet() {
       const accessToken = sessionStorage.getItem("accessToken");
       await axios.post(
         "/posts/create",
-        { textfield },
+        { textfield: textfield, picture: image },
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
+      dispatch(tweetSuccess());
+      setImage("");
+      setTextfield("");
     } catch (error) {
       if (error.response.status === 403) {
+        await RefreshToken();
         try {
-          const refreshToken = localStorage.getItem("refreshToken");
-          const { data } = await axios.post("/auth/refresh/token", {
-            token: refreshToken,
-          });
-
-          sessionStorage.setItem("accessToken", data.accessToken);
           const accessToken = sessionStorage.getItem("accessToken");
           await axios.post(
             "/posts/create",
@@ -61,10 +85,13 @@ function Tweet() {
             { headers: { Authorization: `Bearer ${accessToken}` } }
           );
           dispatch(tweetSuccess());
+          setImage("");
+          setTextfield("");
         } catch (error) {
           dispatch(tweetFail(error.response.data));
-          console.log(error);
         }
+      } else {
+        dispatch(tweetFail(error.response.data));
       }
     }
   };
@@ -85,7 +112,7 @@ function Tweet() {
           <ArrowBackIcon style={{ fontSize: "1.5rem" }} />
         </div>
         <button
-          className="py-1 px-4 transition-color rounded-full bg-blue-500 text-white font-bold hover:bg-blue-600"
+          className="py-1 px-4 grid place-content-center transition-color rounded-full bg-blue-500 text-white font-bold hover:bg-blue-600 w-2/12"
           onClick={() => handleOnClick()}
         >
           {isLoading ? <Loader forPage={false} /> : <h1>Tweet</h1>}
@@ -101,19 +128,33 @@ function Tweet() {
           <textarea
             name="tweet"
             id="tweet"
-            rows="4"
+            rows={image === "" ? `4` : `2`}
             value={textfield}
             onChange={(e) => setTextfield(e.target.value)}
             className="w-full outline-none text-xl text-gray-700 placeholder:text-gray-600"
             placeholder="What's happening?"
           ></textarea>
-          <div className="flex-items space-x-2 text-blue-400 font-bold py-0.5 px-2 rounded-full hover:bg-blue-50 transition-color cursor-pointer w-max">
+          {image !== "" && (
+            <div className="relative">
+              <div
+                className="absolute top-3 left-3 text-white p-1 rounded-full bg-black transition-color cursor-pointer"
+                onClick={() => {
+                  setImage("");
+                  setSelectedFile(null);
+                }}
+              >
+                <CloseOutlinedIcon />
+              </div>
+              <img src={image} alt="File" className="w-[30rem] mx-auto" />
+            </div>
+          )}
+          <div className="mt-4 flex-items space-x-2 text-blue-400 font-bold py-0.5 px-2 rounded-full hover:bg-blue-50 transition-color cursor-pointer w-max">
             <PublicOutlinedIcon style={{ fontSize: "1.5rem" }} />
             <h1>Everyone can reply</h1>
           </div>
           <div className="ring-1 ring-gray-100 my-2 w-[75%]" />
           <div className="flex-items space-x-2 text-blue-500">
-            <div className="tweet-icon">
+            <div className="tweet-icon" onClick={() => showOpenFileDialog()}>
               <CollectionsOutlinedIcon style={{ fontSize: "1.5rem" }} />
             </div>
             <div className="tweet-icon">
@@ -134,6 +175,13 @@ function Tweet() {
               <LocationOnOutlinedIcon style={{ fontSize: "1.5rem" }} />
             </div>
           </div>
+          <input
+            type="file"
+            name="file"
+            ref={imageRef}
+            style={{ display: "none" }}
+            onChange={(event) => handleChange(event)}
+          />
         </div>
       </div>
       {error && <h1 className="error err-animation">{error}!</h1>}
