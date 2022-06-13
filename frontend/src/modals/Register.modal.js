@@ -86,7 +86,6 @@ function Register() {
           year,
         })
       );
-      dispatch(setRegisterModalState(false));
     } catch (error) {
       dispatch(registerFail(error.response.data));
     }

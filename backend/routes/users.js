@@ -100,6 +100,7 @@ router.post("/send_email", async (req, res) => {
     for (let i = 0; i < 5; i++) {
       code += numbers.charAt(Math.floor(Math.random() * numbers.length));
     }
+    console.log(code);
 
     // point to the template folder
     const handlebarOptions = {
@@ -114,7 +115,7 @@ router.post("/send_email", async (req, res) => {
     const mailTransporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "twitterclonebot@gmail.com",
+        user: "twitterclonebot1f12@gmail.com",
         pass: process.env.EMAIL_SENDER_PASS,
       },
     });

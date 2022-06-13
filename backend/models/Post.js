@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const postSchema = mongoose.Schema({
-  title: {
+  textfield: {
     type: String,
     default: "",
     max: 280,

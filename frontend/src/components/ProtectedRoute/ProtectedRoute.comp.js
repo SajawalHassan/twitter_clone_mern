@@ -15,6 +15,7 @@ function ProtectedRoute() {
       dispatch(loginFail(""));
       navigate("/");
     }
+    // eslint-disable-next-line
   }, []);
 
   return isAuth ? <Outlet /> : <Navigate to="/" />;

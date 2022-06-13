@@ -10,13 +10,13 @@ router.post("/create", authenticateToken, async (req, res) => {
     // Validating info
     const { error } = postsValidation(req.body);
     if (error) return res.status(400).json(error.details[0].message);
-    if ((req.body.title == null) & (req.body.picture == null)) {
+    if ((req.body.textfield == null) & (req.body.picture == null)) {
       return res.status(400).json("Fill one of the fields");
     }
 
     // Getting info for new post
     const newPost = new Post({
-      title: req.body.title,
+      textfield: req.body.textfield,
       picture: req.body.picture,
       ownerId: req.user._id,
     });
@@ -42,7 +42,7 @@ router.put("/edit/:id", authenticateToken, async (req, res) => {
     // Validating info
     const { error } = postsValidation(req.body);
     if (error) return res.status(400).json(error.details[0].message);
-    if ((req.body.title == null) & (req.body.picture == null)) {
+    if ((req.body.textfield == null) & (req.body.picture == null)) {
       return res.status(400).json("Fill one of the fields");
     }
 
@@ -111,7 +111,7 @@ router.post("/retweet/:id", authenticateToken, async (req, res) => {
 
     // Getting info for new post
     const newPost = new Post({
-      title: post.title,
+      textfield: post.textfield,
       picture: post.picture,
       ownerId: post.ownerId,
       repostOwnerId: req.user._id,

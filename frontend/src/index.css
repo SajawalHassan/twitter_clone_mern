@@ -21,6 +21,9 @@
   .transition-color {
     @apply transition-colors duration-300;
   }
+  .tweet-icon {
+    @apply p-2 rounded-full hover:bg-blue-50 cursor-pointer transition-color mt-1;
+  }
 }
 
 body {
@@ -35,6 +38,10 @@ body {
   animation: 200ms modal-animation;
 }
 
+.menu-option-anim {
+  animation: 500ms menu-option-anim;
+}
+
 @keyframes err-animation {
   0% {
     bottom: 0;
@@ -45,6 +52,15 @@ body {
 }
 
 @keyframes modal-animation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes menu-option-anim {
   0% {
     opacity: 0;
   }

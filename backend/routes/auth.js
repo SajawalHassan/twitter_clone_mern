@@ -145,13 +145,15 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/refresh/token", (req, res) => {
+router.post("/refresh/token", async (req, res) => {
   try {
     // Getting refresh token
     const refreshToken = req.body.token;
 
     // Finding refresh token
-    const _refreshToken = RefreshToken.findOne({ refreshToken: refreshToken });
+    const _refreshToken = await RefreshToken.findOne({
+      refreshToken: refreshToken,
+    });
 
     // Making sure there is a refresh token and that refresh token exists in db
     if (refreshToken == null) return res.sendStatus(401);

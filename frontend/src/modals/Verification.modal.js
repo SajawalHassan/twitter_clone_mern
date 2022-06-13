@@ -106,7 +106,7 @@ function Verification() {
     <div
       className={
         verificationIsOpen
-          ? `w-screen h-screen absolute top-0 bg-white md:bg-black md:bg-opacity-[0.004] modal-animation`
+          ? `w-screen h-screen absolute top-0 bg-white md:bg-black md:bg-opacity-[0.004]`
           : `hidden`
       }
     >

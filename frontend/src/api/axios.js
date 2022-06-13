@@ -9,27 +9,33 @@ export default axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-const client = axios.create({ baseURL: BASE_URL });
+const client = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-export const axiosAuth = ({ ...options }) => {
+export const axiosAuth = async ({ ...options }) => {
   // Sending access token with request
   client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
   const onSuccess = (response) => response;
-  const onError = (error) => {
+  const onError = async (error) => {
     if (error.response.status === 403) {
+      console.log("Yo wassap from axios");
       // Making function to generate new access token
       const refresh = async () => {
-        const { data } = await axios.post(`${BASE_URL}/auth/refresh`, {
+        const { data } = await axios.post(`${BASE_URL}/auth/refresh/token`, {
           token: refreshToken,
         });
-        return data;
+        return data.accessToken;
       };
 
       // Generating access token
-      const newAccessToken = refresh();
-
+      const newAccessToken = await refresh();
       sessionStorage.setItem("accessToken", newAccessToken);
+
       return client({ ...options });
     }
 

@@ -4,12 +4,18 @@ function Loader({ forPage }) {
   return (
     <div
       className={
-        forPage ? `w-screen h-screen grid place-content-center` : `block`
+        forPage
+          ? `absolute inset-0 m-auto bg-white grid place-content-center`
+          : `block`
       }
     >
       <div
         style={{ borderTopColor: "blue" }}
-        className="w-6 h-6 border-2 border-blue-300 animate-spin rounded-full"
+        className={
+          forPage
+            ? `w-8 h-8 border-2 border-blue-300 animate-spin rounded-full`
+            : `w-6 h-6 border-2 border-blue-300 animate-spin rounded-full`
+        }
       ></div>
     </div>
   );

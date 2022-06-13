@@ -36,6 +36,12 @@ const loginSlice = createSlice({
       state.isAuth = false;
       state.error = "";
     },
+    logout: (state) => {
+      state.isLoading = false;
+      state.loginIsOpen = false;
+      state.isAuth = false;
+      state.error = "";
+    },
   },
 });
 
@@ -47,6 +53,7 @@ export const {
   loginSuccess,
   setLoginModalState,
   setloginPending,
+  logout,
 } = actions;
 
 export default reducer;
