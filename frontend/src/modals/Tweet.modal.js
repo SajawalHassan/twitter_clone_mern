@@ -57,6 +57,8 @@ function Tweet() {
 
   // On each change let user have access to a selected file
   const handleChange = (event) => {
+    setImage("");
+    setSelectedFile();
     const file = event.target.files[0];
     setSelectedFile(file);
   };

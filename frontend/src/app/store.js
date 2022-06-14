@@ -8,6 +8,7 @@ import loginReducer from "../features/login.slice";
 import userReducer from "../features/user.slice";
 import sidebarReducer from "../features/sidebar.slice";
 import tweetReducer from "../features/tweet.slice";
+import headerReducer from "../features/header.slice";
 import storage from "redux-persist/lib/storage";
 
 // Combining reducers
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   user: userReducer,
   sidebar: sidebarReducer,
   tweet: tweetReducer,
+  header: headerReducer,
 });
 
 const persistConfig = {
