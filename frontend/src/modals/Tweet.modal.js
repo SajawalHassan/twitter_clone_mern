@@ -1,67 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
-import CollectionsOutlinedIcon from "@mui/icons-material/CollectionsOutlined";
-import GifBoxOutlinedIcon from "@mui/icons-material/GifBoxOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
-import ScheduleOutlinedIcon from "@mui/icons-material/ScheduleOutlined";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import Loader from "../components/Loader/Loader.comp";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
   setTweetModal,
   setTweetPending,
-  tweetErrorClear,
   tweetFail,
   tweetSuccess,
 } from "../features/tweet.slice";
 import axios from "../api/axios";
 import RefreshToken from "../hooks/RefreshToken";
+import TweetComp from "../components/Tweet/TweetComp.comp";
 
 function Tweet() {
   const [textfield, setTextfield] = useState("");
   const [image, setImage] = useState("");
-  const [selectedFile, setSelectedFile] = useState();
 
-  const { user } = useSelector((state) => state.user);
-  const { profilePic } = user;
-  const { tweetModalIsOpen, error, isLoading } = useSelector(
-    (state) => state.tweet
-  );
+  const { tweetModalIsOpen, isLoading } = useSelector((state) => state.tweet);
 
   const dispatch = useDispatch();
-  const imageRef = useRef();
-
-  if (error !== "") {
-    setTimeout(() => dispatch(tweetErrorClear()), 3000);
-  }
-
-  // Clean up the selection to avoid memory leak
-  useEffect(() => {
-    if (selectedFile) {
-      const objectURL = URL.createObjectURL(selectedFile);
-      setImage(objectURL);
-      return () => URL.revokeObjectURL(objectURL);
-    }
-  }, [selectedFile]);
-
-  // Opening menu to select file
-  const showOpenFileDialog = () => {
-    imageRef.current.click();
-  };
-
-  // On each change let user have access to a selected file
-  const handleChange = (event) => {
-    setImage("");
-    setSelectedFile();
-    const file = event.target.files[0];
-    setSelectedFile(file);
-  };
 
   const handleOnClick = async () => {
     dispatch(setTweetPending(true));
@@ -102,11 +61,11 @@ function Tweet() {
     <div
       className={
         tweetModalIsOpen
-          ? `h-screen w-screen absolute inset-0 bg-white py-2 px-4`
+          ? `h-screen w-screen absolute inset-0 bg-white py-2 z-50`
           : `hidden`
       }
     >
-      <div className="flex-items justify-between">
+      <div className="flex-items justify-between px-4">
         <div
           className="p-1 cursor-pointer rounded-full hover:bg-gray-200 transition-color"
           onClick={() => dispatch(setTweetModal(false))}
@@ -120,7 +79,13 @@ function Tweet() {
           {isLoading ? <Loader forPage={false} /> : <h1>Tweet</h1>}
         </button>
       </div>
-      <div className="flex mt-6 space-x-2 w-screen">
+      <TweetComp
+        textfield={textfield}
+        setTextfield={setTextfield}
+        image={image}
+        setImage={setImage}
+      />
+      {/* <div className="flex mt-6 space-x-2 w-screen">
         {profilePic === "" ? (
           <AccountCircleOutlinedIcon style={{ fontSize: "2rem" }} />
         ) : (
@@ -186,7 +151,7 @@ function Tweet() {
           />
         </div>
       </div>
-      {error && <h1 className="error err-animation">{error}!</h1>}
+      {error && <h1 className="error err-animation">{error}!</h1>} */}
     </div>
   );
 }
