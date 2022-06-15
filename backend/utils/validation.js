@@ -37,15 +37,6 @@ module.exports.userEditValidation = (data) => {
   return schema.validate(data);
 };
 
-module.exports.postsValidation = (data) => {
-  const schema = Joi.object({
-    textfield: Joi.string().default("").max(280),
-    picture: Joi.string().default(""),
-  });
-
-  return schema.validate(data);
-};
-
 module.exports.listsValidation = (data) => {
   const schema = Joi.object({
     title: Joi.string().required().max(280),

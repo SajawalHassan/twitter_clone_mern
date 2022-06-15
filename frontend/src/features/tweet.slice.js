@@ -18,12 +18,10 @@ const tweetSlice = createSlice({
     },
     tweetSuccess: (state) => {
       state.isLoading = false;
-      state.tweetModalIsOpen = false;
       state.error = "";
     },
     tweetFail: (state, { payload }) => {
       state.isLoading = false;
-      state.tweetModalIsOpen = true;
       state.error = payload;
     },
     tweetErrorClear: (state) => {

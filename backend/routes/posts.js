@@ -7,10 +7,7 @@ const { postsValidation } = require("../utils/validation");
 
 router.post("/create", authenticateToken, async (req, res) => {
   try {
-    // Validating info
-    const { error } = postsValidation(req.body);
-    if (error) return res.status(400).json(error.details[0].message);
-    if ((req.body.textfield == null) & (req.body.picture == null)) {
+    if ((req.body.textfield == "") & (req.body.picture == "")) {
       return res.status(400).json("Fill one of the fields");
     }
 

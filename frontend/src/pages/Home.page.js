@@ -3,15 +3,15 @@ import Header from "../components/Header/Header.comp";
 import Sidebar from "../components/Sidebar/Sidebar.comp";
 import TweetComp from "../components/Tweet/TweetComp.comp";
 import Tweet from "../modals/Tweet.modal";
+import protectedAxios from "../utils/protectedAxios";
 
 import { useDispatch } from "react-redux";
 import {
+  setTweetModal,
   setTweetPending,
   tweetFail,
   tweetSuccess,
 } from "../features/tweet.slice";
-import axios from "../api/axios";
-import RefreshToken from "../hooks/RefreshToken";
 
 function Home() {
   const [textfield, setTextfield] = useState("");
@@ -22,35 +22,19 @@ function Home() {
   const handleOnClick = async () => {
     dispatch(setTweetPending(true));
 
-    try {
-      const accessToken = sessionStorage.getItem("accessToken");
-      await axios.post(
-        "/posts/create",
-        { textfield: textfield, picture: image },
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      );
+    const { error, status } = await protectedAxios({
+      url: "posts/create",
+      body: { textfield, picture: image },
+      method: "post",
+    });
+
+    if (error) return dispatch(tweetFail(error));
+    if (status === 200) {
       dispatch(tweetSuccess());
-      setImage("");
+      dispatch(setTweetModal(false));
       setTextfield("");
-    } catch (error) {
-      if (error.response.status === 403) {
-        await RefreshToken();
-        try {
-          const accessToken = sessionStorage.getItem("accessToken");
-          await axios.post(
-            "/posts/create",
-            { textfield },
-            { headers: { Authorization: `Bearer ${accessToken}` } }
-          );
-          dispatch(tweetSuccess());
-          setImage("");
-          setTextfield("");
-        } catch (error) {
-          dispatch(tweetFail(error.response.data));
-        }
-      } else {
-        dispatch(tweetFail(error.response.data));
-      }
+      setImage("");
+      dispatch(tweetFail("Your Tweet has been posted"));
     }
   };
 

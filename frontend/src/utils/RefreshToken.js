@@ -9,6 +9,7 @@ function RefreshToken() {
       });
 
       sessionStorage.setItem("accessToken", data.accessToken);
+
       return data.accessToken;
     } catch (error) {
       console.log(error);
