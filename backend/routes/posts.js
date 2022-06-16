@@ -152,8 +152,12 @@ router.put("/bookmark/:id", authenticateToken, async (req, res) => {
 router.get("/recommendation", authenticateToken, async (req, res) => {
   try {
     const posts = await Post.find();
+    const ownerId = posts.map(({ ownerId }) => {
+      return ownerId;
+    });
+    const ownerInfo = await User.findOne({ _id: ownerId });
 
-    res.json(posts);
+    res.json({ posts, ownerInfo });
   } catch (error) {
     res.sendStatus(500);
   }

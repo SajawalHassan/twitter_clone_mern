@@ -14,6 +14,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import SidebarOption from "./SidebarOption.comp";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter.hook";
 import axios from "../../api/axios";
+import Loader from "../Loader/Loader.comp";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -21,7 +22,6 @@ import { ReactComponent as TweetPic } from "../../images/tweet.svg";
 import { loginFail, logout, setloginPending } from "../../features/login.slice";
 import { setSidebarProfileMenuIsOpen } from "../../features/sidebar.slice";
 import { setTweetModal } from "../../features/tweet.slice";
-import Loader from "../Loader/Loader.comp";
 
 function Sidebar() {
   const { sidebarProfileMenuIsOpen } = useSelector((state) => state.sidebar);

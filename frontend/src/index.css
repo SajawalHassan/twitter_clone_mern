@@ -22,7 +22,7 @@
     @apply transition-colors duration-300;
   }
   .tweet-icon {
-    @apply p-[5px] rounded-full hover:bg-blue-50 cursor-pointer transition-color mt-1;
+    @apply p-[5px] rounded-full hover:bg-blue-50 cursor-pointer transition-color my-1;
   }
 }
 

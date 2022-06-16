@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoading: false,
   posts: [],
-  owner: {},
+  ownerInfo: {},
 };
 
 const postsSlice = createSlice({
@@ -15,7 +15,8 @@ const postsSlice = createSlice({
     },
     postsSuccess: (state, { payload }) => {
       state.isLoading = false;
-      state.posts = payload;
+      state.posts = payload.posts;
+      state.ownerInfo = payload.ownerInfo;
     },
   },
 });
