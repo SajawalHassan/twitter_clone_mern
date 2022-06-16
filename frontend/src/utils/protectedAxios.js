@@ -86,20 +86,20 @@ function protectedAxios({ url, body, method }) {
     // GET
     if (method === "get") {
       try {
-        await axios.get(url, {
+        const { data } = await axios.get(url, {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
 
-        return { status: 200, error: "" };
+        return { status: 200, error: "", data };
       } catch (error) {
         if (error.response.status === 403) {
           const refreshTokenResponse = await RefreshToken();
           try {
-            await axios.get(url, {
+            const { data } = await axios.get(url, {
               headers: { Authorization: `Bearer ${refreshTokenResponse}` },
             });
 
-            return { status: 200, error: "" };
+            return { status: 200, error: "", data };
           } catch (error) {
             return { error: error.response.data, status: 400 };
           }

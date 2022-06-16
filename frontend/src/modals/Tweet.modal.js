@@ -34,6 +34,8 @@ function Tweet() {
     if (status === 200) {
       dispatch(tweetSuccess());
       dispatch(setTweetModal(false));
+      setTextfield("");
+      setImage("");
     }
   };
 
@@ -65,73 +67,6 @@ function Tweet() {
         image={image}
         setImage={setImage}
       />
-      {/* <div className="flex mt-6 space-x-2 w-screen">
-        {profilePic === "" ? (
-          <AccountCircleOutlinedIcon style={{ fontSize: "2rem" }} />
-        ) : (
-          <img src={profilePic} alt="profile_pic" />
-        )}
-        <div className="w-full pr-5">
-          <textarea
-            name="tweet"
-            id="tweet"
-            rows={image === "" ? `4` : `2`}
-            value={textfield}
-            onChange={(e) => setTextfield(e.target.value)}
-            className="w-full outline-none text-xl text-gray-700 placeholder:text-gray-600"
-            placeholder="What's happening?"
-          ></textarea>
-          {image !== "" && (
-            <div className="relative">
-              <div
-                className="absolute top-3 left-3 text-white p-1 rounded-full bg-black transition-color cursor-pointer"
-                onClick={() => {
-                  setImage("");
-                  setSelectedFile(null);
-                }}
-              >
-                <CloseOutlinedIcon />
-              </div>
-              <img src={image} alt="File" className="w-[30rem] mx-auto" />
-            </div>
-          )}
-          <div className="mt-4 flex-items space-x-2 text-blue-400 font-bold py-0.5 px-2 rounded-full hover:bg-blue-50 transition-color cursor-pointer w-max">
-            <PublicOutlinedIcon style={{ fontSize: "1.5rem" }} />
-            <h1>Everyone can reply</h1>
-          </div>
-          <div className="ring-1 ring-gray-100 my-2 w-[75%]" />
-          <div className="flex-items space-x-2 text-blue-500">
-            <div className="tweet-icon" onClick={() => showOpenFileDialog()}>
-              <CollectionsOutlinedIcon style={{ fontSize: "1.5rem" }} />
-            </div>
-            <div className="tweet-icon">
-              <GifBoxOutlinedIcon style={{ fontSize: "1.5rem" }} />
-            </div>
-            <div className="tweet-icon">
-              <BarChartOutlinedIcon style={{ fontSize: "1.5rem" }} />
-            </div>
-            <div className="tweet-icon">
-              <SentimentSatisfiedAltOutlinedIcon
-                style={{ fontSize: "1.5rem" }}
-              />
-            </div>
-            <div className="tweet-icon">
-              <ScheduleOutlinedIcon style={{ fontSize: "1.5rem" }} />
-            </div>
-            <div className="tweet-icon">
-              <LocationOnOutlinedIcon style={{ fontSize: "1.5rem" }} />
-            </div>
-          </div>
-          <input
-            type="file"
-            name="file"
-            ref={imageRef}
-            style={{ display: "none" }}
-            onChange={(event) => handleChange(event)}
-          />
-        </div>
-      </div>
-      {error && <h1 className="error err-animation">{error}!</h1>} */}
     </div>
   );
 }

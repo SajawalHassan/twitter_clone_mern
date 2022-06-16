@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  isLoading: false,
   posts: [],
 };
 
@@ -8,7 +9,11 @@ const postsSlice = createSlice({
   name: "Post",
   initialState,
   reducers: {
-    setPosts: (state, { payload }) => {
+    setPostsPending: (state, { payload }) => {
+      state.isLoading = payload;
+    },
+    postsSuccess: (state, { payload }) => {
+      state.isLoading = false;
       state.posts = payload;
     },
   },
@@ -16,6 +21,6 @@ const postsSlice = createSlice({
 
 const { actions, reducer } = postsSlice;
 
-export const { setPosts } = actions;
+export const { postsSuccess, setPostsPending } = actions;
 
 export default reducer;

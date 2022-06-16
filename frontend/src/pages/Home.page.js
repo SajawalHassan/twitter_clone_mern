@@ -1,23 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header/Header.comp";
 import Sidebar from "../components/Sidebar/Sidebar.comp";
 import TweetComp from "../components/Tweet/TweetComp.comp";
 import Tweet from "../modals/Tweet.modal";
 import protectedAxios from "../utils/protectedAxios";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setTweetModal,
   setTweetPending,
   tweetFail,
   tweetSuccess,
 } from "../features/tweet.slice";
+import { postsSuccess, setPostsPending } from "../features/posts.slice";
+import Loader from "../components/Loader/Loader.comp";
 
 function Home() {
   const [textfield, setTextfield] = useState("");
   const [image, setImage] = useState("");
 
   const dispatch = useDispatch();
+
+  const { isLoading, posts } = useSelector((state) => state.posts);
 
   const handleOnClick = async () => {
     dispatch(setTweetPending(true));
@@ -38,6 +42,19 @@ function Home() {
     }
   };
 
+  useEffect(() => {
+    const getPosts = async () => {
+      dispatch(setPostsPending(true));
+      const { data } = await protectedAxios({
+        url: "posts/recommendation",
+        method: "get",
+      });
+      console.log(data);
+      dispatch(postsSuccess(data));
+    };
+    getPosts();
+  }, [dispatch]);
+
   return (
     <div>
       <div className="flex">
@@ -52,10 +69,17 @@ function Home() {
             inHomePage={true}
             handleOnClick={() => handleOnClick()}
           />
+          {posts.map(({ textfield, picture }) => (
+            <div>
+              <h1>{textfield}</h1>
+              <img src={picture} alt="" />
+            </div>
+          ))}
         </div>
       </div>
 
       <Tweet />
+      {isLoading && <Loader forPage={true} />}
     </div>
   );
 }

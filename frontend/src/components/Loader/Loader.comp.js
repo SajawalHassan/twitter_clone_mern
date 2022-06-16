@@ -5,7 +5,7 @@ function Loader({ forPage }) {
     <div
       className={
         forPage
-          ? `absolute inset-0 m-auto bg-white grid place-content-center`
+          ? `absolute inset-0 m-auto bg-white grid place-content-center z-50`
           : `block`
       }
     >

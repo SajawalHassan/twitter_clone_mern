@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
@@ -22,8 +22,6 @@ function TweetComp({
   inHomePage,
   handleOnClick,
 }) {
-  const [selectedFile, setSelectedFile] = useState();
-
   const { user } = useSelector((state) => state.user);
   const { profilePic } = user;
   const { error, isLoading } = useSelector((state) => state.tweet);
@@ -35,16 +33,6 @@ function TweetComp({
     setTimeout(() => dispatch(tweetErrorClear()), 3000);
   }
 
-  // Clean up the selection to avoid memory leak
-  useEffect(() => {
-    if (selectedFile) {
-      const objectURL = URL.createObjectURL(selectedFile);
-      setImage(objectURL);
-      return () => URL.revokeObjectURL(objectURL);
-    }
-    // eslint-disable-next-line
-  }, [selectedFile]);
-
   // Opening menu to select file
   const showOpenFileDialog = () => {
     imageRef.current.click();
@@ -52,10 +40,18 @@ function TweetComp({
 
   // On each change let user have access to a selected file
   const handleChange = (event) => {
-    setImage("");
-    setSelectedFile();
     const file = event.target.files[0];
-    setSelectedFile(file);
+    if (file) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        setImage(reader.result);
+        console.log(reader.result);
+      };
+      reader.onerror = function (error) {
+        console.log("Error: ", error);
+      };
+    }
   };
 
   return (
@@ -84,10 +80,7 @@ function TweetComp({
             <div className="relative">
               <div
                 className="absolute top-3 left-3 text-white p-1 rounded-full bg-black transition-color cursor-pointer"
-                onClick={() => {
-                  setImage("");
-                  setSelectedFile(null);
-                }}
+                onClick={() => setImage("")}
               >
                 <CloseOutlinedIcon />
               </div>
