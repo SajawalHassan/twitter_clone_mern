@@ -21,7 +21,7 @@ function Home() {
 
   const dispatch = useDispatch();
 
-  const { isLoading, posts } = useSelector((state) => state.posts);
+  const { isLoading } = useSelector((state) => state.posts);
 
   const handleOnClick = async () => {
     dispatch(setTweetPending(true));
@@ -49,7 +49,6 @@ function Home() {
         url: "posts/recommendation",
         method: "get",
       });
-      console.log(data);
       dispatch(postsSuccess(data));
     };
     getPosts();
@@ -69,12 +68,6 @@ function Home() {
             inHomePage={true}
             handleOnClick={() => handleOnClick()}
           />
-          {posts.map(({ textfield, picture }) => (
-            <div>
-              <h1>{textfield}</h1>
-              <img src={picture} alt="" />
-            </div>
-          ))}
         </div>
       </div>
 

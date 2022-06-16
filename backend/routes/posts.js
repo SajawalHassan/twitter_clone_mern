@@ -8,8 +8,12 @@ const { postsValidation } = require("../utils/validation");
 router.post("/create", authenticateToken, async (req, res) => {
   try {
     if ((req.body.textfield == "") & (req.body.picture == "")) {
-      return res.status(400).json("Fill one of the fields");
+      return res.status(400).json("Please fill one of the fields");
     }
+
+    const { error } = postsValidation(req.body);
+    console.log(error);
+    if (error) return res.status(400).json(error.details[0].message);
 
     // Getting info for new post
     const newPost = new Post({

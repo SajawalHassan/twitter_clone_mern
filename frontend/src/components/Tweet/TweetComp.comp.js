@@ -46,10 +46,9 @@ function TweetComp({
       reader.readAsDataURL(file);
       reader.onload = function () {
         setImage(reader.result);
-        console.log(reader.result);
       };
       reader.onerror = function (error) {
-        console.log("Error: ", error);
+        console.log(error);
       };
     }
   };
@@ -66,14 +65,10 @@ function TweetComp({
           <textarea
             name="tweet"
             id="tweet"
-            rows={
-              (image === "" ? `4` : `2`,
-              inHomePage && `1`,
-              inHomePage & (image === "") ? `1` : `2`)
-            }
+            rows={(image === "" ? `4` : `2`, inHomePage && `2`)}
             value={textfield}
             onChange={(e) => setTextfield(e.target.value)}
-            className="w-full outline-none text-xl text-gray-700 placeholder:text-gray-600"
+            className="w-full outline-none text-xl text-gray-700 placeholder:text-gray-600 h-max"
             placeholder="What's happening?"
           ></textarea>
           {image !== "" && (
