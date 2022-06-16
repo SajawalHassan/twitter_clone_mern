@@ -7,7 +7,7 @@ const { postsValidation } = require("../utils/validation");
 
 router.post("/create", authenticateToken, async (req, res) => {
   try {
-    if ((req.body.textfield == "") & (req.body.picture == "")) {
+    if ((req.body.textfield == "") & (req.body.image == "")) {
       return res.status(400).json("Please fill one of the fields");
     }
 
@@ -18,7 +18,7 @@ router.post("/create", authenticateToken, async (req, res) => {
     // Getting info for new post
     const newPost = new Post({
       textfield: req.body.textfield,
-      picture: req.body.picture,
+      image: req.body.image,
       ownerId: req.user._id,
     });
 
@@ -43,7 +43,7 @@ router.put("/edit/:id", authenticateToken, async (req, res) => {
     // Validating info
     const { error } = postsValidation(req.body);
     if (error) return res.status(400).json(error.details[0].message);
-    if ((req.body.textfield == null) & (req.body.picture == null)) {
+    if ((req.body.textfield == null) & (req.body.image == null)) {
       return res.status(400).json("Fill one of the fields");
     }
 
@@ -113,7 +113,7 @@ router.post("/retweet/:id", authenticateToken, async (req, res) => {
     // Getting info for new post
     const newPost = new Post({
       textfield: post.textfield,
-      picture: post.picture,
+      image: post.image,
       ownerId: post.ownerId,
       repostOwnerId: req.user._id,
     });

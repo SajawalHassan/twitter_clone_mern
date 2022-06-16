@@ -21,14 +21,14 @@ function Home() {
 
   const dispatch = useDispatch();
 
-  const { isLoading } = useSelector((state) => state.posts);
+  const { isLoading, posts } = useSelector((state) => state.posts);
 
   const handleOnClick = async () => {
     dispatch(setTweetPending(true));
 
     const { error, status } = await protectedAxios({
       url: "posts/create",
-      body: { textfield, picture: image },
+      body: { textfield, image },
       method: "post",
     });
 
@@ -43,14 +43,15 @@ function Home() {
   };
 
   useEffect(() => {
+    dispatch(setPostsPending(true));
     const getPosts = async () => {
-      dispatch(setPostsPending(true));
       const { data } = await protectedAxios({
         url: "posts/recommendation",
         method: "get",
       });
       dispatch(postsSuccess(data));
     };
+
     getPosts();
   }, [dispatch]);
 
@@ -68,6 +69,12 @@ function Home() {
             inHomePage={true}
             handleOnClick={() => handleOnClick()}
           />
+          {posts.map(({ textfield, image }) => (
+            <div>
+              <h1>{textfield}</h1>
+              <img src={image} alt="" />
+            </div>
+          ))}
         </div>
       </div>
 

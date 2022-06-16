@@ -26,7 +26,7 @@ function Tweet() {
 
     const { error, status } = await protectedAxios({
       url: "posts/create",
-      body: { textfield, picture: image },
+      body: { textfield, image },
       method: "post",
     });
 
