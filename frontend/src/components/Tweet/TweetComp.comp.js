@@ -117,7 +117,7 @@ function TweetComp({
 
             {inHomePage && (
               <button
-                className="py-0.5 px-4 mt-1 grid place-content-center transition-color rounded-full bg-blue-500 text-white font-bold hover:bg-blue-600 w-max"
+                className="py-0.5 px-4 mt-1 grid place-content-center transition-color rounded-full bg-blue-500 text-white font-bold hover:bg-blue-600 w-[25%]"
                 onClick={() => handleOnClick()}
               >
                 {isLoading ? <Loader forPage={false} /> : <h1>Tweet</h1>}

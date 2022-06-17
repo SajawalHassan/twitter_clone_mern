@@ -5,6 +5,7 @@ import TweetComp from "../components/Tweet/TweetComp.comp";
 import Tweet from "../modals/Tweet.modal";
 import protectedAxios from "../utils/protectedAxios";
 
+import { postsSuccess } from "../features/posts.slice";
 import { useDispatch } from "react-redux";
 import {
   setTweetModal,
@@ -28,6 +29,13 @@ function Home() {
       body: { textfield, image },
       method: "post",
     });
+
+    const { data } = await protectedAxios({
+      url: "posts/recommendation",
+      method: "get",
+    });
+
+    dispatch(postsSuccess({ posts: data.posts, ownerInfo: data.ownerInfo }));
 
     if (error) return dispatch(tweetFail(error));
     if (status === 200) {

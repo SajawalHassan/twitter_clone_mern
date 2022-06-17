@@ -69,8 +69,10 @@ function Posts() {
                             </div>
                           </div>
                         </div>
-                        <div className="p-0.5 rounded-full hover:bg-gray-200 cursor-pointer transition-color">
-                          <MoreHorizOutlinedIcon />
+                        <div className="pl-3">
+                          <div className="p-0.5 rounded-full hover:bg-gray-200 cursor-pointer transition-color">
+                            <MoreHorizOutlinedIcon />
+                          </div>
                         </div>
                       </div>
 
