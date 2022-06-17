@@ -1,19 +1,11 @@
-import React, { useRef } from "react";
+import React from "react";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
-import useOutsideAlerter from "../../hooks/useOutsideAlerter.hook";
-import CompareArrowsOutlinedIcon from "@mui/icons-material/CompareArrowsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import HeaderMenu from "./HeaderMenu.comp";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setHeaderMenuOpen } from "../../features/header.slice";
-import { ReactComponent as Star } from "../../images/star.svg";
 
 function Header() {
-  const { headerMenuIsOpen } = useSelector((state) => state.header);
-
-  const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef);
-
   const dispatch = useDispatch();
 
   return (
@@ -27,7 +19,8 @@ function Header() {
           <StarBorderOutlinedIcon style={{ fontSize: "1.6rem" }} />
         </div>
 
-        {headerMenuIsOpen && (
+        <HeaderMenu />
+        {/* {headerMenuIsOpen && (
           <div
             className="absolute bg-white right-5 top-5 shadow-lg w-[80%] rounded-md modal-animation"
             ref={wrapperRef}
@@ -69,7 +62,7 @@ function Header() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
