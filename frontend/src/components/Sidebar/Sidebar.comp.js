@@ -56,6 +56,14 @@ function Sidebar() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="z-50">
+        <Loader forPage={true} />
+      </div>
+    );
+  }
+
   return (
     <div className="px-4 py-2 border-r-[1px] h-screen space-y-2 border-gray-200 flex items-center flex-col sticky top-0 left-0">
       <div className="rounded-full transition-color cursor-pointer hover:bg-blue-100 px-2 py-3 w-max">
@@ -130,7 +138,7 @@ function Sidebar() {
       {sidebarProfileMenuIsOpen && (
         <div
           ref={wrapperRef}
-          className="absolute bottom-10 left-16 rounded-t-2xl rounded-br-2xl ring-2 ring-gray-200 bg-white w-[60vw] modal-animation"
+          className="absolute bottom-14 left-16 rounded-t-2xl rounded-br-2xl ring-2 ring-gray-200 bg-white w-[60vw] modal-animation"
         >
           <div className="flex-items space-x-2 px-2 py-5">
             {profilePic === "" ? (
@@ -159,7 +167,6 @@ function Sidebar() {
           </div>
         </div>
       )}
-      {isLoading && <Loader forPage={true} />}
     </div>
   );
 }

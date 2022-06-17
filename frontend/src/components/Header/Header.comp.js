@@ -17,7 +17,7 @@ function Header() {
   const dispatch = useDispatch();
 
   return (
-    <div className="sticky top-0 z-50 backdrop-blur-3xl">
+    <div className="sticky top-0 z-40 backdrop-blur-3xl">
       <div className="relative flex-items h-max w-full justify-between p-4">
         <h1 className="text-xl font-bold">Home</h1>
         <div

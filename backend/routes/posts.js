@@ -155,7 +155,7 @@ router.get("/recommendation", authenticateToken, async (req, res) => {
     const ownerId = posts.map(({ ownerId }) => {
       return ownerId;
     });
-    const ownerInfo = await User.findOne({ _id: ownerId });
+    const ownerInfo = await User.find({ _id: ownerId });
 
     res.json({ posts, ownerInfo });
   } catch (error) {
