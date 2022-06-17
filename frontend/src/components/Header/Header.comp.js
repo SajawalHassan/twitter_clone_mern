@@ -29,7 +29,7 @@ function Header() {
 
         {headerMenuIsOpen && (
           <div
-            className="absolute bg-white right-5 top-5 shadow-lg w-[80%] rounded-lg modal-animation"
+            className="absolute bg-white right-5 top-5 shadow-lg w-[80%] rounded-md modal-animation"
             ref={wrapperRef}
           >
             <div className="grid place-content-center py-2">
