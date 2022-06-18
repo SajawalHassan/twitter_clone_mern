@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import twitterLogo from "../../images/twitter_logo.png";
@@ -75,6 +75,7 @@ function Sidebar() {
       <SidebarOption
         MuiIcon={<SearchOutlinedIcon style={{ fontSize: "2rem" }} />}
         text="Explore"
+        path="/explore"
       />
       <SidebarOption
         MuiIcon={<NotificationsOutlinedIcon style={{ fontSize: "2rem" }} />}

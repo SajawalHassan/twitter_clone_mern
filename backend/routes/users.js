@@ -11,6 +11,16 @@ const hbs = require("nodemailer-express-handlebars");
 
 const { userEditValidation } = require("../utils/validation");
 
+router.get("/all", authenticateToken, async (req, res) => {
+  try {
+    const users = await User.find();
+
+    res.json(users);
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
 router.get("/profile/:id", authenticateToken, async (req, res) => {
   try {
     // Getting user info

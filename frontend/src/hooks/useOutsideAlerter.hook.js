@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setHeaderMenuOpen } from "../features/header.slice";
 
-function useOutsideAlerter(ref) {
+function useOutsideAlerter(ref, setState) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -10,6 +10,7 @@ function useOutsideAlerter(ref) {
     function handleClickOutside(event) {
       if (ref.current && !ref.current.contains(event.target)) {
         dispatch(setHeaderMenuOpen(false));
+        setState(false);
       }
     }
     // Bind the event listener
@@ -18,7 +19,7 @@ function useOutsideAlerter(ref) {
       // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref, dispatch]);
+  }, [ref, dispatch, setState]);
 }
 
 export default useOutsideAlerter;
