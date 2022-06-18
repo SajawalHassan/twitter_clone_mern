@@ -12,6 +12,7 @@ import {
 } from "../features/tweet.slice";
 import TweetComp from "../components/Tweet/TweetComp.comp";
 import protectedAxios from "../utils/protectedAxios";
+import { postsSuccess } from "../features/posts.slice";
 
 function Tweet() {
   const [textfield, setTextfield] = useState("");
@@ -29,6 +30,13 @@ function Tweet() {
       body: { textfield, image },
       method: "post",
     });
+
+    const { data } = await protectedAxios({
+      url: "posts/recommendation",
+      method: "get",
+    });
+
+    dispatch(postsSuccess({ posts: data.posts, ownerInfo: data.ownerInfo }));
 
     if (error) return dispatch(tweetFail(error));
     if (status === 200) {

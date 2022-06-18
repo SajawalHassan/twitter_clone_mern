@@ -10,11 +10,31 @@ import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
 
 import { useDispatch, useSelector } from "react-redux";
 import { postsSuccess, setPostsPending } from "../../features/posts.slice";
+import { tweetFail } from "../../features/tweet.slice";
 
 function Posts() {
   const dispatch = useDispatch();
 
   const { isLoading, posts, ownerInfo } = useSelector((state) => state.posts);
+
+  const likeTweet = async (posts) => {
+    try {
+      await protectedAxios({
+        url: `posts/like/${posts._id}`,
+        method: "put",
+      });
+      dispatch(tweetFail("Tweet liked"));
+
+      const { data } = await protectedAxios({
+        url: "posts/recommendation",
+        method: "get",
+      });
+
+      dispatch(postsSuccess({ posts: data.posts, ownerInfo: data.ownerInfo }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     dispatch(setPostsPending(true));
@@ -33,39 +53,45 @@ function Posts() {
     <div>
       <div className="flex justify-center mt-5">{isLoading && <Loader />}</div>
       {posts &&
-        posts.map(({ textfield, image, ownerId }) => (
-          <div className="px-3 pt-2 pb-1 border border-gray-100 m-1">
+        posts.map((posts) => (
+          <div
+            className="px-3 pt-2 pb-1 border border-gray-100 m-1"
+            key={posts._id}
+          >
             {ownerInfo &&
-              ownerInfo.map(({ _id, displayname, username, profilePic }) => (
-                <div>
-                  {_id === ownerId && (
+              ownerInfo.map((ownerInfo) => (
+                <div key={ownerInfo._id}>
+                  {ownerInfo._id === posts.ownerId && (
                     <div>
                       <div className="flex-items justify-between">
                         <div className="flex-items">
                           <div>
-                            {!profilePic ? (
+                            {!ownerInfo.profilePic ? (
                               <div className="p-2">
                                 <AccountCircleOutlinedIcon
                                   style={{ fontSize: "2rem" }}
                                 />
                               </div>
                             ) : (
-                              <img src={profilePic} alt="profile_pic" />
+                              <img
+                                src={ownerInfo.profilePic}
+                                alt="profile_pic"
+                              />
                             )}
                           </div>
                           <div>
                             <div className="flex-items">
                               <div className="flex-items space-x-1">
                                 <h1 className="truncate font-bold">
-                                  {displayname}
+                                  {ownerInfo.displayname}
                                 </h1>
                                 <h1 className="truncate text-gray-600">
-                                  @{username}
+                                  @{ownerInfo.username}
                                 </h1>
                               </div>
                             </div>
                             <div>
-                              <h1>{textfield}</h1>
+                              <h1>{posts.textfield}</h1>
                             </div>
                           </div>
                         </div>
@@ -78,7 +104,7 @@ function Posts() {
 
                       <div className="mx-auto grid place-content-center">
                         <img
-                          src={image}
+                          src={posts.image}
                           alt=""
                           className="rounded-xl w-[18rem] my-1"
                         />
@@ -89,8 +115,12 @@ function Posts() {
                           <div className="tweet-icon hover:bg-green-100">
                             <CompareArrowsOutlinedIcon />
                           </div>
-                          <div className="tweet-icon hover:bg-red-100">
+                          <div
+                            className="flex-items hover:text-red-500 transition-color space-x-1 cursor-pointer"
+                            onClick={() => likeTweet(posts)}
+                          >
                             <FavoriteBorderOutlinedIcon />
+                            <h1>{posts.likes.length}</h1>
                           </div>
                           <div className="tweet-icon">
                             <IosShareOutlinedIcon />

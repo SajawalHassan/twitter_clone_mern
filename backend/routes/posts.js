@@ -151,7 +151,7 @@ router.put("/bookmark/:id", authenticateToken, async (req, res) => {
 
 router.get("/recommendation", authenticateToken, async (req, res) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().sort({ $natural: -1 });
     const ownerId = posts.map(({ ownerId }) => {
       return ownerId;
     });
