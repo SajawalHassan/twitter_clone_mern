@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setHeaderMenuOpen } from "../features/header.slice";
-import { setSidebarProfileMenuIsOpen } from "../features/sidebar.slice";
 
 function useOutsideAlerter(ref) {
   const dispatch = useDispatch();
@@ -10,7 +9,6 @@ function useOutsideAlerter(ref) {
     // Close menu if clicked on outside of element
     function handleClickOutside(event) {
       if (ref.current && !ref.current.contains(event.target)) {
-        dispatch(setSidebarProfileMenuIsOpen(false));
         dispatch(setHeaderMenuOpen(false));
       }
     }

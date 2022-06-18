@@ -12,28 +12,46 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SidebarOption from "./SidebarOption.comp";
-import useOutsideAlerter from "../../hooks/useOutsideAlerter.hook";
-import SidebarProfileMenu from "./SidebarProfileMenu.comp";
 import Loader from "../Loader/Loader.comp";
+import axios from "../../api/axios";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ReactComponent as TweetPic } from "../../images/tweet.svg";
 import { setSidebarProfileMenuIsOpen } from "../../features/sidebar.slice";
 import { setTweetModal } from "../../features/tweet.slice";
+import { loginFail, logout, setloginPending } from "../../features/login.slice";
 
 function Sidebar() {
   const { sidebarProfileMenuIsOpen } = useSelector((state) => state.sidebar);
   const { tweetModalIsOpen } = useSelector((state) => state.tweet);
-
-  const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef);
+  const { user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { user } = useSelector((state) => state.user);
   const { isLoading } = useSelector((state) => state.login);
-  const { profilePic } = user;
+
+  const { displayname, username, profilePic } = user;
+
+  const handleOnClick = async (e) => {
+    e.preventDefault();
+
+    dispatch(setloginPending(true));
+    try {
+      const refreshToken = localStorage.getItem("refreshToken");
+      await axios.delete("/auth/logout", {
+        token: refreshToken,
+      });
+
+      localStorage.removeItem("refreshToken");
+      sessionStorage.removeItem("accessToken");
+      dispatch(logout());
+      navigate("/");
+    } catch (error) {
+      dispatch(loginFail(error.response.data));
+    }
+  };
 
   if (isLoading) {
     return (
@@ -44,7 +62,7 @@ function Sidebar() {
   }
 
   return (
-    <div className="px-4 py-2 border-r-[1px] h-screen space-y-2 border-gray-200 flex items-center flex-col sticky top-0 left-0">
+    <div className="px-4 py-2 border-r-[1px] h-screen space-y-2 border-gray-200 flex items-center flex-col sticky top-0 left-0 z-50">
       <div className="rounded-full transition-color cursor-pointer hover:bg-blue-100 px-2 py-3 w-max">
         <Link to="/home">
           <img src={twitterLogo} alt="twitter_logo" className="h-7" />
@@ -93,7 +111,7 @@ function Sidebar() {
       {profilePic === "" ? (
         <div className="absolute bottom-7">
           {sidebarProfileMenuIsOpen ? (
-            <div onClick={() => dispatch(setSidebarProfileMenuIsOpen(true))}>
+            <div onClick={() => dispatch(setSidebarProfileMenuIsOpen(false))}>
               <SidebarOption
                 textIsVisible={false}
                 MuiIcon={<CloseOutlinedIcon style={{ fontSize: "2rem" }} />}
@@ -114,7 +132,39 @@ function Sidebar() {
         <img src={profilePic} alt="profile_pic" />
       )}
 
-      <SidebarProfileMenu />
+      <div
+        className={
+          sidebarProfileMenuIsOpen
+            ? `absolute bottom-14 left-16 rounded-t-2xl rounded-br-2xl ring-2 ring-gray-200 bg-white w-[60vw] modal-animation`
+            : `hidden`
+        }
+      >
+        <div className="flex-items space-x-2 px-2 py-5">
+          {profilePic === "" ? (
+            <div className="p-2">
+              <AccountCircleOutlinedIcon style={{ fontSize: "2rem" }} />
+            </div>
+          ) : (
+            <img src={profilePic} alt="profile_pic" />
+          )}
+          <div>
+            <h1 className="text-xl font-bold truncate">{displayname}</h1>
+            <p className="text-gray-600">@{username}</p>
+          </div>
+        </div>
+        <div className="ring-1 ring-gray-200" />
+        <div>
+          <h1 className="py-4 px-2 hover:bg-gray-200 cursor-pointer transition-color">
+            Add an existing account
+          </h1>
+          <h1
+            className="py-4 px-2 hover:bg-gray-200 cursor-pointer transition-color rounded-br-2xl"
+            onClick={(e) => handleOnClick(e)}
+          >
+            Log out @{username}
+          </h1>
+        </div>
+      </div>
     </div>
   );
 }
