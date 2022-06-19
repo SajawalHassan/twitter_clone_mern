@@ -6,9 +6,7 @@ import registerReducer from "../features/register.slice";
 import verificationReducer from "../features/verification.slice";
 import loginReducer from "../features/login.slice";
 import userReducer from "../features/user.slice";
-import sidebarReducer from "../features/sidebar.slice";
 import tweetReducer from "../features/tweet.slice";
-import headerReducer from "../features/header.slice";
 import postsReducer from "../features/posts.slice";
 import storage from "redux-persist/lib/storage";
 
@@ -18,16 +16,14 @@ const reducers = combineReducers({
   verification: verificationReducer,
   login: loginReducer,
   user: userReducer,
-  sidebar: sidebarReducer,
   tweet: tweetReducer,
-  header: headerReducer,
   posts: postsReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["verification", "user", "login"], // Slicers that will be persisted
+  whitelist: ["user", "login"], // Slicers that will be persisted
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

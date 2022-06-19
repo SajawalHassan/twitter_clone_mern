@@ -5,7 +5,7 @@ function SidebarOptions({
   MuiIcon,
   text,
   textIsVisible = true,
-  path = "/home",
+  path = "/explore",
 }) {
   return (
     <Link to={path}>

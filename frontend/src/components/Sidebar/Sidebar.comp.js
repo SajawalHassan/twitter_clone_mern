@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import twitterLogo from "../../images/twitter_logo.png";
@@ -18,14 +18,18 @@ import axios from "../../api/axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ReactComponent as TweetPic } from "../../images/tweet.svg";
-import { setSidebarProfileMenuIsOpen } from "../../features/sidebar.slice";
 import { setTweetModal } from "../../features/tweet.slice";
 import { loginFail, logout, setloginPending } from "../../features/login.slice";
+import useOutsideAlerter from "../../hooks/useOutsideAlerter.hook";
 
-function Sidebar() {
-  const { sidebarProfileMenuIsOpen } = useSelector((state) => state.sidebar);
+function Sidebar({ path }) {
   const { tweetModalIsOpen } = useSelector((state) => state.tweet);
   const { user } = useSelector((state) => state.user);
+  const [sidebarProfileMenuIsOpen, setSidebarProfileMenuIsOpen] =
+    useState(false);
+
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef, setSidebarProfileMenuIsOpen);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -71,6 +75,7 @@ function Sidebar() {
       <SidebarOption
         MuiIcon={<HomeOutlinedIcon style={{ fontSize: "2rem" }} />}
         text="Home"
+        path="/home"
       />
       <SidebarOption
         MuiIcon={<SearchOutlinedIcon style={{ fontSize: "2rem" }} />}
@@ -80,26 +85,32 @@ function Sidebar() {
       <SidebarOption
         MuiIcon={<NotificationsOutlinedIcon style={{ fontSize: "2rem" }} />}
         text="Notifications"
+        path="/home"
       />
       <SidebarOption
         MuiIcon={<MailOutlinedIcon style={{ fontSize: "2rem" }} />}
         text="Messages"
+        path="/home"
       />
       <SidebarOption
         MuiIcon={<BookmarkOutlinedIcon style={{ fontSize: "2rem" }} />}
         text="Bookmarks"
+        path="/home"
       />
       <SidebarOption
         MuiIcon={<ListAltOutlinedIcon style={{ fontSize: "2rem" }} />}
         text="Lists"
+        path="/home"
       />
       <SidebarOption
         MuiIcon={<PersonOutlinedIcon style={{ fontSize: "2rem" }} />}
         text="Profile"
+        path="/home"
       />
       <SidebarOption
         MuiIcon={<MoreHorizOutlinedIcon style={{ fontSize: "2rem" }} />}
         text="More"
+        path="/home"
       />
 
       <div
@@ -112,19 +123,21 @@ function Sidebar() {
       {profilePic === "" ? (
         <div className="absolute bottom-7">
           {sidebarProfileMenuIsOpen ? (
-            <div onClick={() => dispatch(setSidebarProfileMenuIsOpen(false))}>
+            <div onClick={() => setSidebarProfileMenuIsOpen(false)}>
               <SidebarOption
                 textIsVisible={false}
                 MuiIcon={<CloseOutlinedIcon style={{ fontSize: "2rem" }} />}
+                path={path}
               />
             </div>
           ) : (
-            <div onClick={() => dispatch(setSidebarProfileMenuIsOpen(true))}>
+            <div onClick={() => setSidebarProfileMenuIsOpen(true)}>
               <SidebarOption
                 textIsVisible={false}
                 MuiIcon={
                   <AccountCircleOutlinedIcon style={{ fontSize: "2rem" }} />
                 }
+                path={path}
               />
             </div>
           )}
@@ -139,6 +152,7 @@ function Sidebar() {
             ? `absolute bottom-14 left-16 rounded-t-2xl rounded-br-2xl ring-2 ring-gray-200 bg-white w-[60vw] modal-animation`
             : `hidden`
         }
+        ref={wrapperRef}
       >
         <div className="flex-items space-x-2 px-2 py-5">
           {profilePic === "" ? (

@@ -10,7 +10,6 @@ import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
 
 import { useDispatch, useSelector } from "react-redux";
 import { postsSuccess, setPostsPending } from "../../features/posts.slice";
-import { tweetFail } from "../../features/tweet.slice";
 
 function Posts() {
   const dispatch = useDispatch();
@@ -23,7 +22,6 @@ function Posts() {
         url: `posts/like/${posts._id}`,
         method: "put",
       });
-      dispatch(tweetFail("Tweet liked"));
 
       const { data } = await protectedAxios({
         url: "posts/recommendation",

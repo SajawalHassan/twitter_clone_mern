@@ -1,22 +1,17 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 
-import { useDispatch, useSelector } from "react-redux";
-import { setHeaderMenuOpen } from "../../features/header.slice";
+import { ReactComponent as Star } from "../../images/star.svg";
 
 import CompareArrowsOutlinedIcon from "@mui/icons-material/CompareArrowsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter.hook";
 
-import { ReactComponent as Star } from "../../images/star.svg";
-
 function Header() {
-  const dispatch = useDispatch();
-
-  const { headerMenuIsOpen } = useSelector((state) => state.header);
+  const [menu, setMenu] = useState(false);
 
   const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef);
+  useOutsideAlerter(wrapperRef, setMenu);
 
   return (
     <div className="sticky top-0 z-40 backdrop-blur-3xl">
@@ -24,12 +19,12 @@ function Header() {
         <h1 className="text-xl font-bold">Home</h1>
         <div
           className="p-1 rounded-full cursor-pointer transition-color hover:bg-gray-200"
-          onClick={() => dispatch(setHeaderMenuOpen(true))}
+          onClick={() => setMenu(true)}
         >
           <StarBorderOutlinedIcon style={{ fontSize: "1.6rem" }} />
         </div>
 
-        {headerMenuIsOpen && (
+        {menu && (
           <div
             className="absolute bg-white right-5 top-5 shadow-lg w-[80%] rounded-md modal-animation"
             ref={wrapperRef}

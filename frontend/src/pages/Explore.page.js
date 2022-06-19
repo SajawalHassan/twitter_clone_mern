@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar/Sidebar.comp";
 function Explore() {
   return (
     <div className="flex">
-      <Sidebar />
+      <Sidebar path="/explore" />
       <ExploreHeader />
     </div>
   );

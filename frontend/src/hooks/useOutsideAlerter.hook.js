@@ -1,15 +1,10 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setHeaderMenuOpen } from "../features/header.slice";
 
 function useOutsideAlerter(ref, setState) {
-  const dispatch = useDispatch();
-
   useEffect(() => {
     // Close menu if clicked on outside of element
     function handleClickOutside(event) {
       if (ref.current && !ref.current.contains(event.target)) {
-        dispatch(setHeaderMenuOpen(false));
         setState(false);
       }
     }
@@ -19,7 +14,7 @@ function useOutsideAlerter(ref, setState) {
       // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref, dispatch, setState]);
+  }, [ref, setState]);
 }
 
 export default useOutsideAlerter;
