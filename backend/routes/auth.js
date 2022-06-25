@@ -39,6 +39,11 @@ router.post("/register", async (req, res) => {
       month: req.body.month,
       day: req.body.day,
       year: req.body.year,
+      banner: req.body.banner,
+      profilePic: req.body.profilePic,
+      bio: req.body.bio,
+      location: req.body.location,
+      website: req.body.website,
     });
 
     // Saving user into db
@@ -93,15 +98,6 @@ router.post("/login", async (req, res) => {
       displayname: user.displayname,
       username: user.username,
       email: user.email,
-      bookmarkedTweets: user.bookmarkedTweets,
-      likedTweets: user.likedTweets,
-      followers: user.followers,
-      following: user.following,
-      date: user.date,
-      month: user.month,
-      day: user.day,
-      year: user.year,
-      profilePic: user.profilePic,
     };
 
     // Generating access token
@@ -138,6 +134,11 @@ router.post("/login", async (req, res) => {
       profilePic: user.profilePic,
       accessToken: accessToken,
       refreshToken: refreshToken,
+      banner: user.banner,
+      noOfTweets: user.noOfTweets,
+      bio: user.bio,
+      location: user.location,
+      website: user.website,
     });
   } catch (error) {
     res.sendStatus(500);

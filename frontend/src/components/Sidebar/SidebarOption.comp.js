@@ -1,12 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function SidebarOptions({
-  MuiIcon,
-  text,
-  textIsVisible = true,
-  path = "/explore",
-}) {
+function SidebarOptions({ MuiIcon, text, textIsVisible = true, path }) {
   return (
     <Link to={path}>
       <div className="relative flex-items group">

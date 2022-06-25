@@ -50,7 +50,7 @@ function Home() {
   return (
     <div>
       <div className="flex">
-        <Sidebar />
+        <Sidebar path="/home" />
         <div className="w-full">
           <Header />
           <TweetComp
@@ -64,7 +64,6 @@ function Home() {
           <Posts />
         </div>
       </div>
-
       <Tweet />
     </div>
   );

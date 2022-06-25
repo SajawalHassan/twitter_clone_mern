@@ -74,6 +74,7 @@ function Posts() {
                               <img
                                 src={ownerInfo.profilePic}
                                 alt="profile_pic"
+                                className="w-[2.5rem] rounded-full mr-3"
                               />
                             )}
                           </div>

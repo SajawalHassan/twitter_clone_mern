@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import twitterLogo from "../../images/twitter_logo.png";
@@ -21,8 +21,10 @@ import { ReactComponent as TweetPic } from "../../images/tweet.svg";
 import { setTweetModal } from "../../features/tweet.slice";
 import { loginFail, logout, setloginPending } from "../../features/login.slice";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter.hook";
+import protectedAxios from "../../utils/protectedAxios";
 
 function Sidebar({ path }) {
+  const [userInfo, setUserInfo] = useState({});
   const { tweetModalIsOpen } = useSelector((state) => state.tweet);
   const { user } = useSelector((state) => state.user);
   const [sidebarProfileMenuIsOpen, setSidebarProfileMenuIsOpen] =
@@ -36,7 +38,20 @@ function Sidebar({ path }) {
 
   const { isLoading } = useSelector((state) => state.login);
 
-  const { displayname, username, profilePic } = user;
+  const { _id } = user;
+  const { displayname, username, profilePic } = userInfo;
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const { data } = await protectedAxios({
+        url: `users/profile/${_id}`,
+        method: "get",
+      });
+
+      setUserInfo(data);
+    };
+    getUserInfo();
+  }, [setUserInfo, _id]);
 
   const handleOnClick = async (e) => {
     e.preventDefault();
@@ -66,7 +81,7 @@ function Sidebar({ path }) {
   }
 
   return (
-    <div className="px-4 py-2 border-r-[1px] h-screen space-y-2 border-gray-200 flex items-center flex-col sticky top-0 left-0 z-50">
+    <div className="w-[20vw] py-2 border-r-[1px] h-screen space-y-2 border-gray-200 flex items-center flex-col sticky top-0 left-0">
       <div className="rounded-full transition-color cursor-pointer hover:bg-blue-100 px-2 py-3 w-max">
         <Link to="/home">
           <img src={twitterLogo} alt="twitter_logo" className="h-7" />
@@ -104,8 +119,8 @@ function Sidebar({ path }) {
       />
       <SidebarOption
         MuiIcon={<PersonOutlinedIcon style={{ fontSize: "2rem" }} />}
-        text="Profile"
-        path="/home"
+        text="me"
+        path={`/profile/${_id}`}
       />
       <SidebarOption
         MuiIcon={<MoreHorizOutlinedIcon style={{ fontSize: "2rem" }} />}
@@ -120,31 +135,50 @@ function Sidebar({ path }) {
         <TweetPic />
       </div>
 
-      {profilePic === "" ? (
-        <div className="absolute bottom-7">
-          {sidebarProfileMenuIsOpen ? (
-            <div onClick={() => setSidebarProfileMenuIsOpen(false)}>
-              <SidebarOption
-                textIsVisible={false}
-                MuiIcon={<CloseOutlinedIcon style={{ fontSize: "2rem" }} />}
-                path={path}
+      <div className="absolute bottom-7">
+        {profilePic === "" ? (
+          <div>
+            {sidebarProfileMenuIsOpen ? (
+              <div onClick={() => setSidebarProfileMenuIsOpen(false)}>
+                <SidebarOption
+                  textIsVisible={false}
+                  MuiIcon={<CloseOutlinedIcon style={{ fontSize: "2rem" }} />}
+                  path={path}
+                />
+              </div>
+            ) : (
+              <div onClick={() => setSidebarProfileMenuIsOpen(true)}>
+                <SidebarOption
+                  textIsVisible={false}
+                  MuiIcon={
+                    <AccountCircleOutlinedIcon style={{ fontSize: "2rem" }} />
+                  }
+                  path={path}
+                />
+              </div>
+            )}
+          </div>
+        ) : (
+          <div>
+            {sidebarProfileMenuIsOpen ? (
+              <div onClick={() => setSidebarProfileMenuIsOpen(true)}>
+                <SidebarOption
+                  textIsVisible={false}
+                  MuiIcon={<CloseOutlinedIcon style={{ fontSize: "2rem" }} />}
+                  path={path}
+                />
+              </div>
+            ) : (
+              <img
+                src={profilePic}
+                alt=""
+                className="rounded-full h-[3rem] w-[3rem] cursor-pointer"
+                onClick={() => setSidebarProfileMenuIsOpen(true)}
               />
-            </div>
-          ) : (
-            <div onClick={() => setSidebarProfileMenuIsOpen(true)}>
-              <SidebarOption
-                textIsVisible={false}
-                MuiIcon={
-                  <AccountCircleOutlinedIcon style={{ fontSize: "2rem" }} />
-                }
-                path={path}
-              />
-            </div>
-          )}
-        </div>
-      ) : (
-        <img src={profilePic} alt="profile_pic" />
-      )}
+            )}
+          </div>
+        )}
+      </div>
 
       <div
         className={
@@ -160,7 +194,11 @@ function Sidebar({ path }) {
               <AccountCircleOutlinedIcon style={{ fontSize: "2rem" }} />
             </div>
           ) : (
-            <img src={profilePic} alt="profile_pic" />
+            <img
+              src={profilePic}
+              alt="profile_pic"
+              className="h-[3rem] w-[3rem] rounded-full"
+            />
           )}
           <div>
             <h1 className="text-xl font-bold truncate">{displayname}</h1>

@@ -25,6 +25,19 @@ const userSchema = mongoose.Schema({
     min: 8,
     max: 1024,
   },
+  bio: {
+    type: String,
+    default: "",
+    max: 160,
+  },
+  location: {
+    type: String,
+    default: "",
+  },
+  website: {
+    type: String,
+    default: "",
+  },
   profilePic: {
     type: String,
     default: "",
@@ -33,9 +46,17 @@ const userSchema = mongoose.Schema({
     type: Array,
     default: [],
   },
+  noOfTweets: {
+    type: Number,
+    default: 0,
+  },
   likedTweets: {
     type: Array,
     default: [],
+  },
+  banner: {
+    type: String,
+    default: "",
   },
   followers: {
     type: Array,
@@ -46,7 +67,7 @@ const userSchema = mongoose.Schema({
     default: [],
   },
   month: {
-    type: Number,
+    type: String,
     required: true,
   },
   day: {

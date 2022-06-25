@@ -32,7 +32,7 @@ router.get("/profile/:id", authenticateToken, async (req, res) => {
   }
 });
 
-router.put("/edit", authenticateToken, async (req, res) => {
+router.put("/edit/:id", authenticateToken, async (req, res) => {
   try {
     // Validating info
     const { error } = userEditValidation(req.body);
@@ -48,7 +48,7 @@ router.put("/edit", authenticateToken, async (req, res) => {
     }
 
     // Updating user info
-    await User.findByIdAndUpdate(req.user._id, {
+    await User.findByIdAndUpdate(req.params.id, {
       $set: req.body,
     });
 

@@ -8,20 +8,20 @@ function protectedAxios({ url, body, method }) {
     // POST
     if (method === "post") {
       try {
-        await axios.post(url, body, {
+        const { data } = await axios.post(url, body, {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
 
-        return { status: 200, error: "" };
+        return { status: 200, error: "", data };
       } catch (error) {
         if (error.response.status === 403) {
           const refreshTokenResponse = await RefreshToken();
           try {
-            await axios.post(url, body, {
+            const { data } = await axios.post(url, body, {
               headers: { Authorization: `Bearer ${refreshTokenResponse}` },
             });
 
-            return { status: 200, error: "" };
+            return { status: 200, error: "", data };
           } catch (error) {
             return { error: error.response.data, status: 400 };
           }
@@ -34,20 +34,20 @@ function protectedAxios({ url, body, method }) {
     // PUT
     if (method === "put") {
       try {
-        await axios.put(url, body, {
+        const { data } = await axios.put(url, body, {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
 
-        return { status: 200, error: "" };
+        return { status: 200, error: "", data };
       } catch (error) {
         if (error.response.status === 403) {
           const refreshTokenResponse = await RefreshToken();
           try {
-            await axios.put(url, body, {
+            const { data } = await axios.put(url, body, {
               headers: { Authorization: `Bearer ${refreshTokenResponse}` },
             });
 
-            return { status: 200, error: "" };
+            return { status: 200, error: "", data };
           } catch (error) {
             return { error: error.response.data, status: 400 };
           }
@@ -60,20 +60,20 @@ function protectedAxios({ url, body, method }) {
     // DELETE
     if (method === "delete") {
       try {
-        await axios.delete(url, body, {
+        const { data } = await axios.delete(url, body, {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
 
-        return { status: 200, error: "" };
+        return { status: 200, error: "", data };
       } catch (error) {
         if (error.response.status === 403) {
           const refreshTokenResponse = await RefreshToken();
           try {
-            await axios.delete(url, body, {
+            const { data } = await axios.delete(url, body, {
               headers: { Authorization: `Bearer ${refreshTokenResponse}` },
             });
 
-            return { status: 200, error: "" };
+            return { status: 200, error: "", data };
           } catch (error) {
             return { error: error.response.data, status: 400 };
           }

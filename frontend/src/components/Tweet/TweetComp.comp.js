@@ -33,14 +33,9 @@ function TweetComp({
     setTimeout(() => dispatch(tweetErrorClear()), 3000);
   }
 
-  // Opening menu to select file
-  const showOpenFileDialog = () => {
-    imageRef.current.click();
-  };
-
   // On each change let user have access to a selected file
-  const handleChange = (event) => {
-    const file = event.target.files[0];
+  const handleChange = (e) => {
+    const file = e.target.files[0];
     if (file) {
       var reader = new FileReader();
       reader.readAsDataURL(file);
@@ -89,7 +84,10 @@ function TweetComp({
           <div className="ring-1 ring-gray-100 my-2 w-full" />
           <div className="flex-items justify-between space-x-2 text-blue-500">
             <div className="flex-items">
-              <div className="tweet-icon" onClick={() => showOpenFileDialog()}>
+              <div
+                className="tweet-icon"
+                onClick={() => imageRef.current.click()}
+              >
                 <CollectionsOutlinedIcon style={{ fontSize: "1.5rem" }} />
               </div>
               <div className="tweet-icon">
@@ -129,7 +127,7 @@ function TweetComp({
             name="file"
             ref={imageRef}
             style={{ display: "none" }}
-            onChange={(event) => handleChange(event)}
+            onChange={(e) => handleChange(e)}
           />
         </div>
       </div>

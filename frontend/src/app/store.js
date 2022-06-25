@@ -8,6 +8,7 @@ import loginReducer from "../features/login.slice";
 import userReducer from "../features/user.slice";
 import tweetReducer from "../features/tweet.slice";
 import postsReducer from "../features/posts.slice";
+import profileReducer from "../features/profile.slice";
 import storage from "redux-persist/lib/storage";
 
 // Combining reducers
@@ -18,12 +19,13 @@ const reducers = combineReducers({
   user: userReducer,
   tweet: tweetReducer,
   posts: postsReducer,
+  profile: profileReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "login"], // Slicers that will be persisted
+  whitelist: ["user", "login", "profile"], // Slicers that will be persisted
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
@@ -31,6 +33,5 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 // Creating store
 export const store = configureStore({
   reducer: persistedReducer,
-  devTools: process.env.NODE_ENV !== "production",
   middleware: [thunk],
 });

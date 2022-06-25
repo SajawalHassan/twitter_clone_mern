@@ -6,9 +6,12 @@ module.exports.registerValidation = (data) => {
     username: Joi.string().required().min(3).max(255),
     email: Joi.string().required().min(3).max(255).email(),
     password: Joi.string().required().min(8).max(1024),
-    month: Joi.number().required(),
+    month: Joi.string().required(),
     day: Joi.number().required(),
     year: Joi.number().min(1902).max(2022).required(),
+    bio: Joi.string().max(160),
+    location: Joi.string(),
+    website: Joi.string(),
   });
 
   return schema.validate(data);
@@ -25,13 +28,17 @@ module.exports.loginValidation = (data) => {
 
 module.exports.userEditValidation = (data) => {
   const schema = Joi.object({
-    displayname: Joi.string().min(3).max(255),
-    username: Joi.string().min(3).max(255),
-    email: Joi.string().min(3).max(255).email(),
-    password: Joi.string().min(8).max(1024),
-    month: Joi.number(),
-    day: Joi.number(),
-    year: Joi.number().min(1902).max(2022),
+    displayname: Joi.string().min(3).max(255).allow(""),
+    username: Joi.string().min(3).max(255).allow(""),
+    password: Joi.string().min(8).max(1024).allow(""),
+    month: Joi.string().allow(""),
+    day: Joi.number().allow(""),
+    year: Joi.number().min(1902).max(2022).allow(""),
+    bio: Joi.string().max(160).allow(""),
+    location: Joi.string().allow(""),
+    website: Joi.string().allow(""),
+    banner: Joi.string().allow(""),
+    profilePic: Joi.string().allow(""),
   });
 
   return schema.validate(data);

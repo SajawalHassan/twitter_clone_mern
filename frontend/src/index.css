@@ -24,14 +24,19 @@
   .tweet-icon {
     @apply p-[5px] rounded-full hover:bg-blue-50 cursor-pointer transition-color my-1;
   }
-  .explore-header-option {
+  .header-option {
     @apply py-3 px-[13px] hover:bg-gray-200 transition-color cursor-pointer text-gray-700;
+  }
+  .banner-btn-edit {
+    @apply bg-zinc-700 bg-opacity-80 p-2 rounded-full cursor-pointer hover:bg-zinc-500;
+  }
+  .banner-edit-container {
+    @apply w-full h-full absolute top-0 flex-center space-x-5;
   }
 }
 
 body {
   overflow-x: hidden;
-  scroll-behavior: smooth;
 }
 
 .err-animation {

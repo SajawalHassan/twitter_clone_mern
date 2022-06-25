@@ -12,7 +12,6 @@ router.post("/create", authenticateToken, async (req, res) => {
     }
 
     const { error } = postsValidation(req.body);
-    console.log(error);
     if (error) return res.status(400).json(error.details[0].message);
 
     // Getting info for new post
@@ -24,6 +23,9 @@ router.post("/create", authenticateToken, async (req, res) => {
 
     // Saving new post
     await newPost.save();
+
+    const owner = await User.findById(newPost.ownerId);
+    await owner.updateOne({ $inc: { noOfTweets: 1 } });
 
     res.json(newPost);
   } catch (error) {
